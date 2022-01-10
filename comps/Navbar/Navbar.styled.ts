@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
-export const SideMenu = styled.div`
+export const SideMenu = styled.nav`
   width: 100px;
   height: 100%;
   padding: 3px;
   padding-right: 10px;
+  grid-area: nav;
+
+  @media(max-width: 500px) {
+    display: flex;
+  }
 `
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.a`
   width: 100%;
   height: 70px;
   display: flex;
@@ -23,9 +28,4 @@ export const MenuItem = styled.div`
     cursor: pointer;
     color: white;
   }
-`
-
-export const Header = styled.div`
-  padding: 10px;
-  font-size: 1.5em;
 `

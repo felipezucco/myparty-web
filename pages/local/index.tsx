@@ -1,5 +1,5 @@
 import { Dropdown, DropdownChangeParams } from 'primereact/dropdown';
-import { FormEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEventHandler, FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Local } from '../../models/Local.type';
 import { Card } from 'primereact/card';
 import { InputMask } from 'primereact/inputmask';
@@ -8,13 +8,16 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { getCEP, getCities, getUFs } from '../../external/DadosIBGE';
 import { saveLocal } from '../../external/API';
+import Head from 'next/head';
 
 interface LabelValue {
   label: string,
   value: number
 }
 
-export const CreateLocal = () => {
+interface CreateLocalInterface { }
+
+const CreateLocal: FunctionComponent<CreateLocalInterface> = () => {
 
   const toast = useRef<Toast>(null);
   const [buffer, setBuffer] = useState<Local>();
@@ -72,6 +75,9 @@ export const CreateLocal = () => {
 
   return (
     <>
+      <Head>
+        <title>Tendel FC Web | Locais</title>
+      </Head>
       <Toast ref={toast} />
       <form method='POST' onSubmit={(e) => callSaveLocal(e)}>
         <div className="p-d-flex p-flex-column p-p-3">
@@ -111,3 +117,5 @@ export const CreateLocal = () => {
     </>
   )
 }
+
+export default CreateLocal;

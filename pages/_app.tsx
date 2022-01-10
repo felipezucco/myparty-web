@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import LayoutComponent from '../comps/Layout'
+import LayoutComponent from '../comps/Layout/Layout'
 import 'primeflex/primeflex.css';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";

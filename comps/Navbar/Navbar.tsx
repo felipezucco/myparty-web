@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC, FunctionComponent } from "react";
-import { MenuItem, SideMenu } from "../pages/App.styled";
+import { MenuItem, SideMenu } from "./Navbar.styled";
 
 
 const NavbarComponent: FC<any> = () => {
@@ -16,6 +16,12 @@ const NavbarComponent: FC<any> = () => {
         <MenuItem>
           <i className="pi pi-star" style={{ 'fontSize': '2em' }}></i>
           <span>Eventos</span>
+        </MenuItem>
+      </Link>
+      <Link href={'/local'}>
+        <MenuItem>
+          <i className="pi pi-map-marker" style={{ 'fontSize': '2em' }}></i>
+          <span>Locais</span>
         </MenuItem>
       </Link>
     </SideMenu>
