@@ -1,13 +1,20 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactElement, ReactNode } from "react";
+import LayoutComponent from "../../comps/Layout/Layout";
+import { AppPropsWithLayout, NextPageWithLayout } from "../_app";
 
-interface AboutProps {
+const About = () => {
 
+  return (
+    <div>Eu sou o dashboard</div>
+  );
 }
 
-const About: FunctionComponent<AboutProps> = () => {
+About.getLayout = function getLayout(page: ReactElement) {
   return (
-    <div>sssss</div>
-  );
+    <LayoutComponent>
+      {page}
+    </LayoutComponent>
+  )
 }
 
 export default About;

@@ -1,19 +1,34 @@
 import Link from "next/link";
 import { Button } from "primereact/button";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactElement, useState } from "react";
+import { Dialog } from 'primereact/dialog';
+import CreateLocal from "../local";
+import CreateZoneComponent from "./create";
+import LayoutComponent from "../../comps/Layout/Layout";
 
-interface ZonesComponentProps {
+const ZonesComponent = () => {
 
-}
+  const [display, setDisplay] = useState(false);
 
-const ZonesComponent: FunctionComponent<ZonesComponentProps> = () => {
   return (
     <>
-      <Link href={'/zones/create'}>
+      <Button label="Novo Ambiente" icon="pi pi-add" iconPos="right" onClick={() => setDisplay(true)} />
+      {/* <Link href={'/zones/create'}>
         <Button label="Novo Ambiente" icon="pi pi-add" iconPos="right" />
-      </Link>
+      </Link> */}
+      <Dialog header="Novo Ambiente" visible={display} style={{ width: '50vw' }} onHide={() => setDisplay(false)}>
+        <CreateZoneComponent />
+      </Dialog>
     </>
   );
+}
+
+ZonesComponent.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <LayoutComponent>
+      {page}
+    </LayoutComponent>
+  )
 }
 
 export default ZonesComponent;

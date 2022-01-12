@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { InputText } from "primereact/inputtext";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactElement } from "react";
+import LayoutComponent from "../../comps/Layout/Layout";
 
-interface EventProps { }
-
-const Event: FunctionComponent<EventProps> = () => {
+const Event = () => {
   return (
     <>
       <Head>
@@ -17,6 +16,14 @@ const Event: FunctionComponent<EventProps> = () => {
         </div>
       </form>
     </>
+  )
+}
+
+Event.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <LayoutComponent>
+      {page}
+    </LayoutComponent>
   )
 }
 

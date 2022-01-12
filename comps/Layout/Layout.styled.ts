@@ -21,10 +21,11 @@ export const LayoutGrid = styled.section`
 export const LayoutWrapper = styled.section`
   height: 100%;
   border-radius: 3px;
-  box-shadow: 1px 1px 5px #cbcbcb;
+  box-shadow: 3px 3px 5px #00000050;
   padding: 20px;
   width: max-content;
   min-width: max-content;
   position: relative;
   margin-top: 30px;
+  background-color: white;
 `

@@ -11,8 +11,8 @@ const HeaderComponent: FunctionComponent<HeaderComponentProps> = () => {
   return (
     <Header>
       {/* <Image src={'/logo.svg'} width={'50%'} height={'50%'} /> */}
-      <Logo height={50} width={50} fill={'red'} stroke={'red'} />
-      <HeaderTitle>Tendel FC Web</HeaderTitle>
+      {/* <Logo height={50} width={50} fill={'red'} stroke={'red'} /> */}
+      <HeaderTitle>Event Web</HeaderTitle>
     </Header>
   );
 }
