@@ -24,13 +24,13 @@ const NavbarComponent: FC<any> = () => {
           <span>Ingressos</span>
         </MenuItem>
       </Link>
-      <Link href={'/tickets'}>
+      <Link href={'/financial'}>
         <MenuItem>
           <i className="pi pi-dollar" style={{ 'fontSize': '2em' }}></i>
           <span>Financeiro</span>
         </MenuItem>
       </Link>
-      <Link href={'/tickets'}>
+      <Link href={'/documents'}>
         <MenuItem>
           <i className="pi pi-folder" style={{ 'fontSize': '2em' }}></i>
           <span>Documentos</span>

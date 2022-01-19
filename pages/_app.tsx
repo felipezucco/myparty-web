@@ -19,9 +19,6 @@ export type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const getLayout = Component.getLayout ?? ((page) => page)
-
-  console.log(Component.getLayout)
-
   return (
     <AuthProvider>
       {getLayout(<Component {...pageProps} />)}

@@ -15,5 +15,5 @@ export const LoginPageWrapper = styled.section`
   background-color: white;
   border-radius: 3px;
   box-shadow: 3px 3px 5px #00000050;  
-  animation: ${ShowIn} 500ms ease-in-out forwards;
+  animation: ${ShowIn} 300ms ease-in-out forwards;
 `

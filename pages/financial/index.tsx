@@ -1,13 +1,13 @@
 import { FunctionComponent, ReactElement } from "react";
 import LayoutComponent from "../../comps/Layout/Layout";
 
-const TicketComponent = () => {
+const FinancialComponent = () => {
   return (
-    <div>ingressos</div>
+    <div>financeiro</div>
   );
 }
 
-TicketComponent.getLayout = function getLayout(page: ReactElement) {
+FinancialComponent.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent>
       {page}
@@ -15,4 +15,4 @@ TicketComponent.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default TicketComponent;
+export default FinancialComponent;

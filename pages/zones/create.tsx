@@ -1,17 +1,9 @@
-import Link from "next/link";
-import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { FunctionComponent, useEffect, useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { useState } from "react";
 import { Zone } from "../../models/Zone.type";
-import { ColorPicker } from 'primereact/colorpicker';
 import { SubmitHandler, useForm } from "react-hook-form";
 
-interface CreateZoneComponentProps {
-
-}
-
-const CreateZoneComponent: FunctionComponent<CreateZoneComponentProps> = () => {
+const CreateZoneComponent = () => {
 
   const { register, handleSubmit } = useForm<Zone>();
   const [zone, setZone] = useState<Zone>();
