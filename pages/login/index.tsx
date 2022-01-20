@@ -1,26 +1,30 @@
 import Link from "next/link";
 import Router from "next/router";
 import { Button } from "primereact/button";
-import { FunctionComponent } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Zone } from "../../models/Zone.type";
+import { FunctionComponent, useContext, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../contexts/AuthContext";
 import { LoginPageWrapper } from "./LoginPage.styled";
+import { parseCookies, } from 'nookies';
+
+export type SignInRequestType = {
+  username: string,
+  password: string
+}
 
 interface LoginPageProps { }
 
 const LoginPage: FunctionComponent<LoginPageProps> = () => {
 
-  const { register, handleSubmit } = useForm<{ username: string, password: string }>();
+  const { register, handleSubmit } = useForm<SignInRequestType>();
+  const { signIn } = useContext(AuthContext);
 
   function redirect() {
     Router.push('/dashboard')
   }
 
-  function handleSubmitForm(data: any): SubmitHandler<any> {
-    console.log(data)
-    localStorage.setItem('felipe', 'tubarao');
-    console.log(localStorage.getItem('felipe'))
-    return data;
+  function handleSubmitForm(data: any) {
+    signIn(data)
   }
 
   return (
