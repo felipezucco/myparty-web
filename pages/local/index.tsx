@@ -6,8 +6,8 @@ import { InputMask } from 'primereact/inputmask';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
-import { getCEP, getCities, getUFs } from '../../external/DadosIBGE';
-import { saveLocal } from '../../external/API';
+import { getCEP, getCities, getUFs } from '../../services/DadosIBGE';
+import { saveLocal } from '../../services/api';
 import Head from 'next/head';
 
 interface LabelValue {

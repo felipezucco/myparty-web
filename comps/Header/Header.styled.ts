@@ -11,6 +11,11 @@ export const Header = styled.header`
 
 export const HeaderTitle = styled.span`
   font-size: 2em;
-`
+  flex-grow: 1;
+  `
 
-export const HeaderIcon = styled.svg
+export const HeaderProfile = styled.section`
+  width: 150px;
+  height: 100%;
+  flex-grow: 0;
+`  

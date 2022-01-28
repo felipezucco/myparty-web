@@ -5,7 +5,7 @@ import { Card } from "primereact/card";
 import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { signUp, SignUpFormType } from "../../external/SignUp";
+import { signUp, SignUpFormType } from "../../services/SignUp";
 
 const LoginPage = () => {
 

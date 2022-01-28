@@ -1,18 +1,16 @@
-import { FunctionComponent } from "react";
-import { Header, HeaderIcon, HeaderTitle } from "./Header.styled";
-import Logo from '../../public/logo.svg'
-import Image from "next/image";
+import { Header, HeaderProfile, HeaderTitle } from "./Header.styled";
+import Profile from "./Profile/Profile";
 
-interface HeaderComponentProps {
+const HeaderComponent = () => {
 
-}
-
-const HeaderComponent: FunctionComponent<HeaderComponentProps> = () => {
   return (
     <Header>
       {/* <Image src={'/logo.svg'} width={'50%'} height={'50%'} /> */}
       {/* <Logo height={50} width={50} fill={'red'} stroke={'red'} /> */}
       <HeaderTitle>Event Web</HeaderTitle>
+      <HeaderProfile>
+        <Profile />
+      </HeaderProfile>
     </Header>
   );
 }

@@ -1,5 +1,5 @@
-import { Localization } from './../models/Localization.type';
-import { UF, City } from './../models/UF.type';
+import { Localization } from '../models/Localization.type';
+import { UF, City } from '../models/UF.type';
 import axios from 'axios';
 
 export const getUFs = async (): Promise<UF[]> => {

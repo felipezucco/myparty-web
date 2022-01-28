@@ -6,22 +6,19 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 import { LoginPageWrapper } from "./LoginPage.styled";
 import { parseCookies, } from 'nookies';
+import { getAPIClient } from "../../services/axios";
+import { GetServerSideProps } from "next";
+import { AxiosError } from "axios";
 
 export type SignInRequestType = {
   username: string,
   password: string
 }
 
-interface LoginPageProps { }
-
-const LoginPage: FunctionComponent<LoginPageProps> = () => {
+const LoginPage = () => {
 
   const { register, handleSubmit } = useForm<SignInRequestType>();
   const { signIn } = useContext(AuthContext);
-
-  function redirect() {
-    Router.push('/dashboard')
-  }
 
   function handleSubmitForm(data: any) {
     signIn(data)
@@ -40,3 +37,4 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
 }
 
 export default LoginPage;
+

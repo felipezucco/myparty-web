@@ -1,12 +1,10 @@
+import { getAPIClient } from './axios';
 import { Local } from '../models/Local.type';
-import axios from "axios";
 
-export const api = axios.create({
-  baseURL: "http://localhost:8080/",
-});
+export const apiInstance = getAPIClient();
 
 export const getLocals = async () => {
-  let locals: Local[] = await api
+  let locals: Local[] = await apiInstance
     .get('/local')
     .then((e) => {
       return e.data
@@ -17,7 +15,7 @@ export const getLocals = async () => {
 }
 
 export const saveLocal = async (local: Local) => {
-  return await api
+  return await apiInstance
     .post('/local', JSON.stringify(local), {
       headers: {
         'Content-Type': 'application/json'
@@ -27,4 +25,4 @@ export const saveLocal = async (local: Local) => {
     .catch(e => console.error(e))
 }
 
-export default api;
+export default apiInstance;

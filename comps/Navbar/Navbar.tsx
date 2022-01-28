@@ -6,7 +6,7 @@ import { MenuItem, SideMenu } from "./Navbar.styled";
 const NavbarComponent: FC<any> = () => {
   return (
     <SideMenu>
-      <Link href={'/'}>
+      <Link href={'/dashboard'}>
         <MenuItem>
           <i className="pi pi-home" style={{ 'fontSize': '2em' }}></i>
           <span>Home</span>
