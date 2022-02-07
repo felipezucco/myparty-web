@@ -1,0 +1,44 @@
+.login_page_wrapper {
+  position: relative;
+  width: 450px;
+  height: max-content;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 3px 3px 5px #00000050;  
+  display: flex;
+  flex-direction: column;
+  padding: 30px; 
+  top: 30px;
+}
+
+.login_page_form {  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 10px;
+}
+
+
+/* buttons */
+.login_buttons_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.login_button {
+  width: max-content;
+}
+.login_button.auth_button {
+  width: 200px;
+}
+.login_button.auth_button.forgotten_password {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+} 
+
+/* signup - back button */
+.back_button {
+  margin-top: 20px;
+  width: max-content;
+}

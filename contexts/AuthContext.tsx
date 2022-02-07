@@ -1,11 +1,9 @@
 import { createContext, useEffect, useState } from "react";
-import { SignInRequestType } from "../pages/login";
+import { SignInRequestType } from "../pages/auth/signin";
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import Router from "next/router";
 import { AxiosError } from "axios";
 import apiInstance from "../services/api";
-import { GetServerSideProps } from "next";
-import { getAPIClient } from "../services/axios";
 
 export type AuthContextType = {
   isAuthenticated: boolean,
@@ -34,31 +32,39 @@ export const AuthProvider = ({ children }: any) => {
   useEffect(() => {
     const { 'eventweb.token': token } = parseCookies();
     if (!!token) {
-      console.log('eventweb.token', token)
-      recoverAuth(token).then(data => authSuccess(data.data)).catch(() => clearAuth());
+      recoverAuth(token).then(data => authSuccess(data.data)).catch((error: AxiosError) => {
+        Router.push('/auth/invalid_auth').then(() => {
+          setTimeout(clearAuth, 3000);
+        })
+      });
     }
   }, [])
 
-  async function signIn(login: SignInRequestType) {
-    console.log('login', login)
-    await apiInstance.post('/auth', login).then(data => authSuccess(data.data)).catch((error: AxiosError) => console.error(error.response?.data));
+  async function signIn(login: SignInRequestType): Promise<any> {
+    await apiInstance.post('/auth', login)
+      .then(data => authSuccess(data.data))
+      .catch(error => { throw error });
   }
 
   async function signOut() {
     await apiInstance.get('/logout')
-      .then(data => console.log(data.data))
-      .catch((error: AxiosError) => console.log(error.response));
-    destroyCookie(undefined, "eventweb.token");
-    delete apiInstance.defaults.headers.common["Authorization"];
+      .then(data => console.log(data))
+      .catch((error: AxiosError) => console.error(error.response));
+    destroyCookie({}, 'eventweb.token', { path: '/' })
+
+    Router.push('/');
   }
 
   async function recoverAuth(token: string) {
-    return await apiInstance.post('/auth/recover', token)
+    return await apiInstance.post('/auth/recover', {
+      token: token
+    })
   }
 
   function authSuccess(auth: AuthResponseType) {
     setCookie(undefined, 'eventweb.token', auth.token, {
-      maxAge: 60 * 1, //1min
+      maxAge: 60 * 60, //30min
+      path: '/'
     });
     setUser({ username: auth.username });
 
@@ -67,7 +73,7 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   function clearAuth() {
-    destroyCookie(undefined, 'eventweb.token');
+    destroyCookie({}, 'eventweb.token', { path: '/' })
     setUser(null);
     delete apiInstance.defaults.headers.common["Authorization"];
     Router.push('/');

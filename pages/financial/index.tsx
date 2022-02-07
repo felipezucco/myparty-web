@@ -1,3 +1,5 @@
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 import { FunctionComponent, ReactElement } from "react";
 import LayoutComponent from "../../comps/Layout/Layout";
 
@@ -16,3 +18,15 @@ FinancialComponent.getLayout = function getLayout(page: ReactElement) {
 }
 
 export default FinancialComponent;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/auth/invalid_auth',
+      permanent: false
+    }
+  }
+}

@@ -2,6 +2,8 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Zone } from "../../models/Zone.type";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 const CreateZoneComponent = () => {
 
@@ -36,3 +38,15 @@ const CreateZoneComponent = () => {
 }
 
 export default CreateZoneComponent;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/auth/invalid_auth',
+      permanent: false
+    }
+  }
+}

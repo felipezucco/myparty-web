@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 import ContentComponent from "../Content/Content";
 import FooterComponent from "../Footer/Footer";
 import HeaderComponent from "../Header/Header";
-import NavbarComponent from "../Navbar/Navbar";
+import NavbarComponent from "../../components/Navbar/Navbar";
 import { LayoutGrid, LayoutWrapper } from "./Layout.styled";
 
 interface LayoutComponentProps { }

@@ -5,6 +5,8 @@ import { Dialog } from 'primereact/dialog';
 import CreateLocal from "../local";
 import CreateZoneComponent from "./create";
 import LayoutComponent from "../../comps/Layout/Layout";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 const ZonesComponent = () => {
 
@@ -32,3 +34,15 @@ ZonesComponent.getLayout = function getLayout(page: ReactElement) {
 }
 
 export default ZonesComponent;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/auth/invalid_auth',
+      permanent: false
+    }
+  }
+}

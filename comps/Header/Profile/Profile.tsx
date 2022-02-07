@@ -10,14 +10,11 @@ const Profile = () => {
   const ctx = useContext(AuthContext);
 
   const SignOutButton = () => {
-    //ctx.signOut();
     return (
       <SignOut >
-        <Link href={"/"}>
-          <div onClick={() => ctx.signOut()}>
-            Sair
-          </div>
-        </Link>
+        <div onClick={() => ctx.signOut()}>
+          Sair
+        </div>
       </SignOut>
     )
   }
