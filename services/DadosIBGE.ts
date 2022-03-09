@@ -2,16 +2,16 @@ import { Localization } from '../models/Localization.type';
 import { UF, City } from '../models/UF.type';
 import axios from 'axios';
 
-export const getUFs = async (): Promise<UF[]> => {
+export const getFederativeUnit = async (): Promise<UF[]> => {
   return await axios.create({ baseURL: 'https://servicodados.ibge.gov.br/' })
-    .get('api/v1/localidades/estados')
+    .get('api/v1/localidades/estados?orderBy=nome')
     .then(e => e.data)
     .catch(e => console.error('Erro ao buscar UFs', e));
 }
 
 export const getCities = async (id: number): Promise<City[]> => {
   return await axios.create({ baseURL: 'https://servicodados.ibge.gov.br/' })
-    .get(`api/v1/localidades/estados/${id}/municipios`)
+    .get(`api/v1/localidades/estados/${id}/municipios?orderBy=nome`)
     .then(e => e.data)
     .catch(e => console.error('Erro ao buscar cidades', e));
 }

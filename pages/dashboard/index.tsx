@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { ReactElement, useEffect } from "react";
-import LayoutComponent from "../../comps/Layout/Layout";
+import LayoutComponent from "../../components/Layout/Layout";
 import { destroyCookie, parseCookies } from 'nookies'
 import { getAPIClient } from "../../services/axios";
 

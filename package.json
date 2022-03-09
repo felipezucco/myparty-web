@@ -19,6 +19,7 @@
     "@types/cookie": "^0.4.1",
     "@types/cookies": "^0.7.7",
     "@types/nookies": "^2.0.3",
+    "imask": "^6.4.2",
     "next": "12.0.7",
     "nookies": "^2.5.2",
     "react": "17.0.2",

@@ -3,7 +3,7 @@ import { SignInRequestType } from "../pages/auth/signin";
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import Router from "next/router";
 import { AxiosError } from "axios";
-import apiInstance from "../services/api";
+import api from "../services/api";
 
 export type AuthContextType = {
   isAuthenticated: boolean,
@@ -41,13 +41,13 @@ export const AuthProvider = ({ children }: any) => {
   }, [])
 
   async function signIn(login: SignInRequestType): Promise<any> {
-    await apiInstance.post('/auth', login)
+    await api.post('/api/auth', login)
       .then(data => authSuccess(data.data))
       .catch(error => { throw error });
   }
 
   async function signOut() {
-    await apiInstance.get('/logout')
+    await api.get('/logout')
       .then(data => console.log(data))
       .catch((error: AxiosError) => console.error(error.response));
     destroyCookie({}, 'eventweb.token', { path: '/' })
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   async function recoverAuth(token: string) {
-    return await apiInstance.post('/auth/recover', {
+    return await api.post('/auth/recover', {
       token: token
     })
   }
@@ -68,14 +68,14 @@ export const AuthProvider = ({ children }: any) => {
     });
     setUser({ username: auth.username });
 
-    apiInstance.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
     Router.push('/dashboard');
   }
 
   function clearAuth() {
     destroyCookie({}, 'eventweb.token', { path: '/' })
     setUser(null);
-    delete apiInstance.defaults.headers.common["Authorization"];
+    delete api.defaults.headers.common["Authorization"];
     Router.push('/');
   }
 

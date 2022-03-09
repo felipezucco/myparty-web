@@ -1,7 +1,7 @@
-import { Local } from './Local.type';
+import { LocalType } from './LocalType';
 export type Event = {
   id?: number,
   name: string,
   date: string,
-  local: Local
+  local: LocalType
 }

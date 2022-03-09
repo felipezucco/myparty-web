@@ -9,11 +9,6 @@ export const getAPIClient = (ctx?: any) => {
     baseURL: "http://localhost:8080/"
   });
 
-  // api.interceptors.request.use(config => {
-  //   console.log(config)
-  //   return config;
-  // })
-
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
