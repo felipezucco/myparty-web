@@ -1,5 +1,7 @@
+import { Zone } from "./Zone.type"
+
 export type LocalType = {
-  id?: number,
+  id: number,
   city?: string,
   state?: string,
   block?: string,
@@ -9,4 +11,11 @@ export type LocalType = {
   complement?: string,
   coordenateX?: number,
   coordenateY?: number
+}
+
+export type HouseType = {
+  id?: number,
+  name?: string,
+  local?: LocalType,
+  zones?: Zone[]
 }

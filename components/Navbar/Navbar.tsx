@@ -36,13 +36,13 @@ const NavbarComponent: FC<any> = () => {
           <span>Documentos</span>
         </MenuItem>
       </Link>
-      {/* <Link href={'/events'}>
+      <Link href={'/events'}>
         <MenuItem>
           <i className="pi pi-star" style={{ 'fontSize': '2em' }}></i>
           <span>Eventos</span>
         </MenuItem>
       </Link>
-      <Link href={'/local'}>
+      {/*<Link href={'/local'}>
         <MenuItem>
           <i className="pi pi-map-marker" style={{ 'fontSize': '2em' }}></i>
           <span>Locais</span>

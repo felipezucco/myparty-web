@@ -1,49 +1,75 @@
-import { ReactElement, useEffect, useState } from "react";
-import CreateZoneComponent from "./create";
+import React, { ReactElement, useEffect, useState } from "react";
 import LayoutComponent from "../../components/Layout/Layout";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import Dialog from '@mui/material/Dialog';
 import Button from "@mui/material/Button";
-import CreateLocal from "../local/create";
-import { LocalType } from "../../models/LocalType";
+import { HouseType } from "../../models/LocalType";
 import { getLocals } from "../../services/api.local";
 import { AxiosError } from "axios";
+import HouseCard from "../../components/Content/Card/House/HouseCard";
+import { deleteHouse, getHouseById, getHouses } from "../../services/api.house";
+import HouseView from "../../components/Content/View/House/HouseView";
+import HouseForm from "../../components/Content/Form/House/HouseForm";
+import EventForm from "../../components/Content/Form/Event/EventForm";
+import { getEvents } from "../../services/api.event";
+import OrganizationForm from "../../components/Content/Form/Organization";
 
 const ZonesComponent = () => {
 
-  const [showCreateZone, setShowCreateZone] = useState(false);
-  const [showCreateLocal, setShowCreateLocal] = useState(false);
-  const [locals, setLocals] = useState<LocalType[]>([] as LocalType[])
+  const [openHouseForm, setOpenHouseForm] = useState(false);
+  const [openEventForm, setOpenEventForm] = useState(false);
+  const [openOrganizetionForm, setOpenOrganizationForm] = useState(false);
+  const [showHouse, setShowHouse] = useState(false);
+  const [selectedHouse, setSelectedHouse] = useState<number | undefined>();
+  const [houses, setHouses] = useState<HouseType[]>([] as HouseType[])
 
   useEffect(() => {
-    loadLocals();
+    loadHouses();
+    loadEvents();
   }, [])
 
-  async function loadLocals() {
-    await getLocals().then(res => setLocals(res.data)).catch((err: AxiosError) => console.error(err.response?.data));
+  async function loadHouses() {
+    await getHouses().then(res => {
+      console.log(res.data);
+      setHouses(res.data);
+    }).catch((err: AxiosError) => console.error(err.response?.data));
+  }
+
+  async function loadEvents() {
+    await getEvents().then(res => {
+      console.log(res.data);
+    }).catch((err: AxiosError) => console.error(err.response?.data));
+  }
+
+  async function handleDeleteHouse(id: number) {
+    await deleteHouse(id).then(res => {
+      loadHouses();
+    }).catch((err: AxiosError) => console.error(err.response?.data));
   }
 
   const Dialogs = () => {
     return (<>
-      <Dialog open={showCreateZone}>
-        <CreateZoneComponent show={setShowCreateZone} />
-      </Dialog>
-      <Dialog open={showCreateLocal}>
-        <CreateLocal show={setShowCreateLocal} onClose={loadLocals} />
-      </Dialog>
+      <HouseView show={showHouse} handleShowDialog={setShowHouse} houseId={selectedHouse} />
+      <HouseForm status={openHouseForm} onClose={() => loadHouses()} setStatus={setOpenHouseForm} />
+      <EventForm status={openEventForm} setStatus={setOpenEventForm} />
+      <OrganizationForm status={openOrganizetionForm} setStatus={setOpenOrganizationForm} />
     </>)
   }
 
   return (
     <>
-      <Button onClick={() => setShowCreateZone(true)} variant="outlined" >Novo Ambiente</Button>
-      <Button onClick={() => setShowCreateLocal(true)} variant="outlined" >Novo Local</Button>
-      <ul>
-        {locals.map(local => {
-          return <li key={local.id}>{`${local.id} - ${local.state}, ${local.city}, ${local.aisle}`}</li>;
+      <Button onClick={() => setOpenHouseForm(true)} variant="outlined" >Novo Local</Button>
+      <Button onClick={() => setOpenEventForm(true)} variant="outlined" >Novo Evento</Button>
+      <Button onClick={() => setOpenOrganizationForm(true)} variant="outlined" >Nova Organização</Button>
+      <div style={{ display: 'flex', flexWrap: 'wrap', width: '1000px', justifyContent: 'start', gap: '10px', padding: '10px' }}>
+        {houses.map(house => {
+          return <HouseCard key={house.id} house={house}
+            handleDeleteHouse={handleDeleteHouse}
+            handleSelectHouse={setSelectedHouse}
+            handleShowHouse={setShowHouse} />
         })}
-      </ul>
+      </div>
       <Dialogs />
     </>
   );

@@ -14,8 +14,9 @@ export const HeaderTitle = styled.span`
   flex-grow: 1;
   `
 
-export const HeaderProfile = styled.section`
-  width: 150px;
+export const HeaderProfile = styled.div`
+  width: auto;
   height: 100%;
+  display: flex;
   flex-grow: 0;
 `  
