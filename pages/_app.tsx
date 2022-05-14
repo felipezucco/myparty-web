@@ -11,6 +11,10 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import "../styles/app.css";
+import { store } from '../src/store/store';
+import { Provider } from 'react-redux';
+
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -24,9 +28,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
-    <AuthProvider>
-      {getLayout(<Component {...pageProps} />)}
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </AuthProvider>
+    </Provider>
   )
 }
 

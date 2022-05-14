@@ -1,16 +1,14 @@
-import { FunctionComponent } from "react";
-import { Content } from "./Content.styled";
+import { FC, FunctionComponent } from "react";
+import style from './content.module.css';
 
-interface ContentComponentProps {
+interface Props { }
 
-}
-
-const ContentComponent: FunctionComponent<ContentComponentProps> = ({ children }) => {
+const Content: FC<Props> = ({ children }) => {
   return (
-    <Content>
+    <section className={style[`main-page`]}>
       {children}
-    </Content>
+    </section>
   );
 }
 
-export default ContentComponent;
+export default Content;

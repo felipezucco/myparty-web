@@ -7,26 +7,49 @@ import api from "../services/api";
 
 export type AuthContextType = {
   isAuthenticated: boolean,
-  signIn: (login: SignInRequestType) => Promise<void>,
-  signOut: () => Promise<void>,
-  user: User | null
+  signIn: (login: SignInRequestType) => void,
+  signOut: () => void,
+  user: UserDTO | null
 }
 
 export type AuthResponseType = {
-  username: string,
+  user: UserDTO,
   token: string
 }
 
-export type User = {
-  username: string
+export type UserDTO = {
+  username: string,
+  name: string,
+  email: string,
+  id?: number
 }
 
+const DEFAULT_AUTH_RESPONSE: AuthResponseType = {
+  user: {
+    username: "",
+    name: "",
+    email: "",
+    id: undefined
+  },
+  token: ""
+};
 
-export const AuthContext = createContext({} as AuthContextType);
+const DEFAULT_CONTEXT: AuthContextType = {
+  isAuthenticated: false,
+  signIn: function (login: SignInRequestType): void {
+    throw new Error("Function not implemented.");
+  },
+  signOut: function (): void {
+    throw new Error("Function not implemented.");
+  },
+  user: null
+};
+
+export const AuthContext = createContext(DEFAULT_CONTEXT);
 
 export const AuthProvider = ({ children }: any) => {
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserDTO>(DEFAULT_AUTH_RESPONSE.user);
   const isAuthenticated = !!user;
 
   useEffect(() => {
@@ -40,7 +63,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   }, [])
 
-  async function signIn(login: SignInRequestType): Promise<any> {
+  async function signIn(login: SignInRequestType) {
     await api.post('/api/auth', login)
       .then(data => authSuccess(data.data))
       .catch(error => { throw error });
@@ -66,7 +89,7 @@ export const AuthProvider = ({ children }: any) => {
       maxAge: 60 * 60, //30min
       path: '/'
     });
-    setUser({ username: auth.username });
+    setUser(auth.user);
 
     api.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
     Router.push('/dashboard');
@@ -74,9 +97,9 @@ export const AuthProvider = ({ children }: any) => {
 
   function clearAuth() {
     destroyCookie({}, 'eventweb.token', { path: '/' })
-    setUser(null);
+    setUser(DEFAULT_AUTH_RESPONSE.user);
     delete api.defaults.headers.common["Authorization"];
-    Router.push('/');
+    //Router.push('/');
   }
 
   return (

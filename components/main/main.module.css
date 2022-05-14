@@ -1,0 +1,4 @@
+.main-section {
+  grid-area: main;
+  width: 100%;
+}

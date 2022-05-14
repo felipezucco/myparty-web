@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import LayoutComponent from "../../components/Layout/Layout";
+import LayoutComponent from "../../components/Layout/layout";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import Dialog from '@mui/material/Dialog';

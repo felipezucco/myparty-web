@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import LayoutComponent from "../../components/Layout/Layout";
+import LayoutComponent from "../../components/Layout/layout";
 import { GetServerSideProps, GetServerSidePropsContext, PreviewData } from 'next'
 import { getAPIClient } from "../../services/axios";
 import { ParsedUrlQuery } from "querystring";

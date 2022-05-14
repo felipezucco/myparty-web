@@ -1,4 +1,16 @@
 .main-class {
-  min-width: 500px;  
-  max-width: 80%;
+  min-width: 500px;
+}
+
+.title-component {
+  font-family: 'Inter-Bold';
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-component .action {
+  font-family: 'Inter-Bold';
+  font-size: 12px;
 }

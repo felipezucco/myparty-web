@@ -1,0 +1,33 @@
+.organization_members_component {}
+
+.organization_members_component .list {
+  display: flex;
+  column-gap: 5px;
+  list-style-type: none;
+  align-items: baseline;
+  overflow: none;
+  overflow-x: scroll;
+  padding: 0;
+}
+
+.organization_members_component .list li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 50px;
+  column-gap: 5px;
+}
+
+.organization_members_component .list li .avatar {
+  height: 50px;
+  width: 50px;
+  background-color: grey;
+  border-radius: 50%;
+}
+
+.organization_members_component .list li .name {
+  width: 100%;
+  font-size: .7em;
+  text-align: center;
+}

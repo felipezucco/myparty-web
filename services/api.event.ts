@@ -1,8 +1,8 @@
-import { EventDTO } from './../models/EventType';
-import { AxiosResponse } from 'axios';
-import api from './api';
+import { AxiosResponse } from "axios";
+import { EventDTO } from "./../models/EventType";
+import api from "./api";
 
-const ENDPOINT = '/api/event';
+const ENDPOINT = "/api/event";
 
 export async function persistEvent(data: EventDTO) {
   return await api.post(ENDPOINT, data);
