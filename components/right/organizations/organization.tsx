@@ -10,15 +10,15 @@ import { DialogInterface } from "../../../src/interface/DialogInterface";
 import { RootState } from "../../../src/store/store";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
-import { setStatus, asyncOrganizations } from "../../../src/store/organization.store";
-import { asyncSetOrganization } from "../../../src/store/global.store";
+import { setStatus, asyncOrganizations } from "../../../src/store/profile_ctx.store";
+import { asyncSetOrganization } from "../../../src/store/organization_ctx.store";
 
 const Organization = () => {
 
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
-  const organization = useAppSelector((state) => state.organization);
-  const global = useAppSelector((state) => state.global);
+  const organization = useAppSelector((state) => state.profile_ctx);
+  const global = useAppSelector((state) => state.organization_ctx);
 
   useEffect(() => {
     if (ctx.user)

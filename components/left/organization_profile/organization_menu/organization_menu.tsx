@@ -30,5 +30,6 @@ const data = [
   { id: 1, name: "Dashboard", link: "/dashboard" },
   { id: 2, name: "Events", link: "/events" },
   { id: 3, name: "Financial", link: "/financial" },
-  { id: 3, name: "Locals", link: "/locals" },
+  { id: 4, name: "Houses", link: "/houses" },
+  { id: 5, name: "Locals", link: "/locals" },
 ]

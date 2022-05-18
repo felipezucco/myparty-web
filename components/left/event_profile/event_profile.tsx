@@ -1,11 +1,30 @@
+import { AxiosError } from "axios";
 import Link from "next/link"
+import { useEffect, useState } from "react";
+import { getEvents } from "../../../services/api.event"
+import { EventDTO } from "../../../src/dto/event.dto";
 
 const EventProfile = () => {
+
+  //states
+  const [eventList, setEventList] = useState<EventDTO[]>([]);
+
+  useEffect(() => {
+    loadEvents();
+  }, [])
+
+  const loadEvents = async () => {
+    await getEvents().then(res => {
+      setEventList(res.data);
+    }).catch((err: AxiosError) => {
+      alert("Fail to load events.");
+    })
+  }
 
   const SelectedEvent = () => {
     return (
       <select>
-        {data.map(d => {
+        {eventList.map(d => {
           return (
             <option key={d.id} value={d.id}>{d.name}</option>
           )

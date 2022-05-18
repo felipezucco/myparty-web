@@ -1,14 +1,33 @@
+import { AxiosError } from "axios";
 import { ReactElement } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormGetValues } from "react-hook-form";
 import LayoutComponent from "../../components/Layout/layout";
+import { persistLocal } from "../../services/api.local";
 import { LocalDTO } from "../../src/dto/local.dto";
+import { useAppSelector } from "../../src/store/hooks";
 
 const Locals = () => {
 
+  //context
+  const global = useAppSelector((state) => state.organization_ctx);
+
+  //state
   const { register, handleSubmit, getValues, setValue } = useForm<LocalDTO>();
 
   const handleSubmitForm = () => {
-    alert("a")
+    // set organization
+    setValue("organization", global.organization);
+
+    createLocal(getValues());
+  }
+
+  const createLocal = async (data: LocalDTO) => {
+    return await persistLocal(data).then(res => {
+      alert("Local created successfuly");
+    }).catch((err: AxiosError) => {
+      console.error("Error to create local:", err.message);
+      alert("Error to create local. See log to more.")
+    })
   }
 
   return (
@@ -30,6 +49,7 @@ const Locals = () => {
         <label htmlFor="number">State</label>
         <input type={"text"} {...register("state")} maxLength={2} /><br />
         <button type={"submit"}>Create</button>
+
       </form>
     </>
 

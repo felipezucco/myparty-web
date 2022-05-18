@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { EventDTO } from "./../models/EventType";
+import { EventDTO } from "../src/dto/event.dto";
 import api from "./api";
 
 const ENDPOINT = "/api/event";

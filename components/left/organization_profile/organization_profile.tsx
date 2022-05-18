@@ -4,7 +4,7 @@ import OrganizationMenu from "./organization_menu/organization_menu";
 import style from "./organization_profile.module.css";
 
 const OrganizationProfile = () => {
-  const controller = useAppSelector((state) => state.global);
+  const controller = useAppSelector((state) => state.organization_ctx);
 
 
   const HeaderComponent = () => {

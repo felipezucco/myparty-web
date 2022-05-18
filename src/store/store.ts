@@ -1,11 +1,11 @@
 import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
-import organizationReducer from "./organization.store";
-import globalReducer from "./global.store";
+import profile_ctxReducer from "./profile_ctx.store";
+import organization_ctxReducer from "./organization_ctx.store";
 
 export const store = configureStore({
   reducer: {
-    global: globalReducer,
-    organization: organizationReducer,
+    organization_ctx: organization_ctxReducer,
+    profile_ctx: profile_ctxReducer,
   }
 });
 

@@ -4,8 +4,8 @@ import { getOrganizerByUser } from '../../services/api.org';
 import { OrganizerDTO } from '../dto/organization.dto';
 import { AppThunk } from './store';
 
-const organization = createSlice({
-  name: "organization",
+const profile_ctx = createSlice({
+  name: "profile_ctx",
   initialState: {
     show: false,
     organizations: [] as OrganizerDTO[]
@@ -21,8 +21,8 @@ const organization = createSlice({
   }
 });
 
-export const { setStatus, setOrganizations } = organization.actions;
-export default organization.reducer;
+export const { setStatus, setOrganizations } = profile_ctx.actions;
+export default profile_ctx.reducer;
 
 export function asyncOrganizations(user: UserDTO): AppThunk {
   return async function (dispatch) {

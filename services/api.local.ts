@@ -1,13 +1,18 @@
+import { LocalDTO } from './../src/dto/local.dto';
 import { AxiosResponse } from 'axios';
 import { LocalType } from '../models/LocalType';
 import api from './api';
 
 const LOCAL_API = '/api/local';
 
-export async function persistLocal(data: LocalType) {
+export async function persistLocal(data: LocalDTO) {
   return await api.post(LOCAL_API, data);
 }
 
-export async function getLocals(): Promise<AxiosResponse<LocalType[]>> {
+export async function getLocals(): Promise<AxiosResponse<LocalDTO[]>> {
   return await api.get(LOCAL_API);
+}
+
+export async function getLocalsByOrganizationId(id: number): Promise<AxiosResponse<LocalDTO[]>> {
+  return await api.get(LOCAL_API + `/org/${id}`);
 }

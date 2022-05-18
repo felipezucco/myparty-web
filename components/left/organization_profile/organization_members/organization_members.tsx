@@ -3,7 +3,7 @@ import style from "./organization_members.module.css";
 
 const OrganizationMembers = () => {
 
-  const global = useAppSelector((state) => state.global);
+  const global = useAppSelector((state) => state.organization_ctx);
 
   const OrganizationMembersList = () => {
     return (

@@ -1,3 +1,4 @@
+import { OrganizationDTO } from './organization.dto';
 export interface LocalDTO {
   id?: number,
   aisle?: string,
@@ -6,5 +7,6 @@ export interface LocalDTO {
   code?: string,
   number?: number,
   complement?: string,
-  state?: string
+  state?: string,
+  organization?: OrganizationDTO
 }

@@ -14,24 +14,32 @@ import { RoleEnum } from "../../../../src/enum/RoleEnum";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../src/store/store";
 import { useAppDispatch, useAppSelector } from "../../../../src/store/hooks";
-import { asyncOrganizations, setStatus } from "../../../../src/store/organization.store";
+import { asyncOrganizations, setStatus } from "../../../../src/store/profile_ctx.store";
 
 const OrganizationForm = () => {
+
+  //context
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
-  const controller = useAppSelector((state) => state.organization);
+  const profile_ctx = useAppSelector((state) => state.profile_ctx);
 
-  const organizer: OrganizerDTO = { user: ctx.user.id, role: RoleEnum.ADMIN };
-  const { register, handleSubmit, setValue, getValues } = useForm<OrganizationDTO>();
+  //states
   const [userList, setUserList] = useState<UserDTO[]>([])
   const [organizers, setOrganizers] = useState<UserDTO[]>([ctx.user] as UserDTO[]);
 
+  //form-hook
+  const { register, handleSubmit, setValue, getValues } = useForm<OrganizationDTO>();
+
   async function handleSubmitForm() {
+    const organizer: OrganizerDTO = { user: { id: ctx.user.id }, role: RoleEnum.ADMIN };
     let organizerList: OrganizerDTO[] = organizers.map((org) => {
       if (org.id === ctx.user.id) return organizer;
-      else return { role: RoleEnum.USER, user: org.id }
+      else return { role: RoleEnum.USER, user: { id: org.id } }
     });
     setValue('organizers', organizerList);
+
+    console.log(getValues());
+
     persistOrganization(getValues()).then(res => {
       dispatch(setStatus(false));
       dispatch(asyncOrganizations(ctx.user));
@@ -45,7 +53,7 @@ const OrganizationForm = () => {
   }
 
   return (
-    <Dialog open={controller.show}>
+    <Dialog open={profile_ctx.show}>
       <form onSubmit={handleSubmit(handleSubmitForm)} method={'POST'}>
         <DialogTitle>
           Criar Organização
