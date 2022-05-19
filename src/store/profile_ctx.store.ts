@@ -14,7 +14,6 @@ const profile_ctx = createSlice({
     setStatus(state, action: PayloadAction<boolean>) {
       state.show = action.payload;
     },
-
     setOrganizations(state, action: PayloadAction<OrganizerDTO[]>) {
       state.organizations = action.payload;
     }

@@ -1,21 +1,19 @@
 import { GetServerSideProps } from "next";
-import { ReactElement, useEffect } from "react";
-import { destroyCookie, parseCookies } from 'nookies'
-import { getAPIClient } from "../../services/axios";
-import LayoutComponent from "../../components/Layout/Layout";
+import { ReactElement } from "react";
+import LayoutComponent from "../../../components/Layout/layout";
+import { parseCookies } from 'nookies'
 
-const About = () => {
-
-  useEffect(() => {
-    //api.get('/user');
-  }, [])
+const Promotions = () => {
 
   return (
-    <div>Eu sou o dashboard</div>
+    <div>
+      Promotions
+    </div>
+    // <LayoutDashboard />
   );
 }
 
-About.getLayout = function getLayout(page: ReactElement) {
+Promotions.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent>
       {page}
@@ -23,7 +21,7 @@ About.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default About;
+export default Promotions;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'eventweb.token': token } = parseCookies(context);

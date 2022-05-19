@@ -31,19 +31,22 @@ const OrganizationForm = () => {
   const { register, handleSubmit, setValue, getValues } = useForm<OrganizationDTO>();
 
   async function handleSubmitForm() {
-    const organizer: OrganizerDTO = { user: { id: ctx.user.id }, role: RoleEnum.ADMIN };
-    let organizerList: OrganizerDTO[] = organizers.map((org) => {
-      if (org.id === ctx.user.id) return organizer;
-      else return { role: RoleEnum.USER, user: { id: org.id } }
-    });
-    setValue('organizers', organizerList);
+    if (ctx.user) {
+      let user = ctx.user;
+      let organizer: OrganizerDTO = { user: { id: user.id }, role: RoleEnum.ADMIN };
+      let organizerList: OrganizerDTO[] = organizers.map((org) => {
+        if (org.id === user.id) return organizer;
+        else return { role: RoleEnum.USER, user: { id: org.id } }
+      });
+      setValue('organizers', organizerList);
 
-    console.log(getValues());
+      console.log(getValues());
 
-    persistOrganization(getValues()).then(res => {
-      dispatch(setStatus(false));
-      dispatch(asyncOrganizations(ctx.user));
-    }).catch((err: AxiosError) => console.error(err));
+      persistOrganization(getValues()).then(res => {
+        dispatch(setStatus(false));
+        dispatch(asyncOrganizations(user));
+      }).catch((err: AxiosError) => console.error(err));
+    }
   }
 
   async function getEmail(data: string) {
@@ -71,7 +74,7 @@ const OrganizationForm = () => {
           <Autocomplete
             multiple
             options={userList}
-            getOptionLabel={(option) => option.email}
+            getOptionLabel={(option) => option.email ? option.email : 'empty'}
             loading={true}
             value={organizers}
             onChange={(event, value) => {

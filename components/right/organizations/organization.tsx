@@ -1,14 +1,9 @@
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext, UserDTO } from "../../../contexts/AuthContext";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
 import { getOrganizerRule } from "../../../models/organizations";
-import { OrganizerView } from "../../../src/dto/organization.dto";
 import AddIcon from '@mui/icons-material/Add';
 import style from "./organization.module.css";
 import OrganizationForm from "../../Content/Form/Organization";
-import { DialogInterface } from "../../../src/interface/DialogInterface";
-import { RootState } from "../../../src/store/store";
-import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { setStatus, asyncOrganizations } from "../../../src/store/profile_ctx.store";
 import { asyncSetOrganization } from "../../../src/store/organization_ctx.store";
@@ -41,9 +36,9 @@ const Organization = () => {
       <ul className={style["organization-list-component"]}>
         {organization.organizations.map(userOrganization => {
           return (
-            <li key={userOrganization.id} className={style["organization"]} onClick={() => dispatch(asyncSetOrganization(userOrganization.organization?.id))}>
+            <li key={userOrganization.id} className={style["organization"]} onClick={() => dispatch(asyncSetOrganization(userOrganization.organization?.id!))}>
               <span className={style["name"]}>{userOrganization.organization?.name}</span>
-              <span className={style["qualifier"]}>{getOrganizerRule(userOrganization.role)}</span>
+              <span className={style["qualifier"]}>{getOrganizerRule(userOrganization.role!)}</span>
               <span className={style["information"]}>{userOrganization.organization?.organizers?.length} organizers </span>
               <img className={style["img"]} src={"/cute-monkey-sitting-banana_138676-3305.webp"} width={50} height={50} />
             </li>

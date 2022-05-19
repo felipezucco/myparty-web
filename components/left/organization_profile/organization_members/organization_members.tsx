@@ -8,7 +8,7 @@ const OrganizationMembers = () => {
   const OrganizationMembersList = () => {
     return (
       <ul className={style["list"]}>
-        {global.organization.organizers.map(organizer => {
+        {global.selected_organization.organizers?.map(organizer => {
           return (
             <li key={organizer.id}>
               <span className={style["avatar"]} />

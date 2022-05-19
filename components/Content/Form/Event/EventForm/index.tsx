@@ -4,7 +4,6 @@ import { LocalizationProvider, DatePicker, LoadingButton, DateTimePicker, TimePi
 import { Dialog, DialogActions, FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { EventDTO } from "../../../../../models/EventType";
 import { DialogInterface } from "../../../../../src/interface/DialogInterface";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import ptBR from "date-fns/locale/pt-BR";
@@ -13,6 +12,7 @@ import { HouseType } from "../../../../../models/LocalType";
 import { format } from "date-fns";
 import { persistEvent } from "../../../../../services/api.event";
 import { AxiosError } from "axios";
+import { EventDTO } from "../../../../../src/dto/event.dto";
 
 interface Props extends DialogInterface { }
 
@@ -23,9 +23,9 @@ const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
   const [houses, setHouses] = useState<HouseType[]>([] as HouseType[])
   const [sending, setSending] = useState(false);
 
-  useEffect(() => {
-    loadHouses();
-  }, [])
+  // useEffect(() => {
+  //   loadHouses();
+  // }, [])
 
   async function handleSubmitForm() {
     setSending(true);
@@ -35,24 +35,24 @@ const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
       .then(res => {
         console.log(res)
         setSending(false);
-        setStatus(false);
+        // setStatus(false);
       })
       .catch((err: AxiosError) => console.log(err))
       .finally(() => setSending(false))
   }
 
-  async function loadHouses() {
-    await getHouses().then(res => setHouses(res.data));
-  }
+  // async function loadHouses() {
+  //   await getHouses().then(res => setHouses(res.data));
+  // }
 
   return (
     <Dialog open={status}>
       <form onSubmit={handleSubmit(handleSubmitForm)} method={'POST'}>
         <DialogTitle>
           Criar Evento
-          <IconButton onClick={() => setStatus(false)}>
+          {/* <IconButton onClick={() => setStatus(false)}>
             <Close />
-          </IconButton>
+          </IconButton> */}
         </DialogTitle>
         <DialogContent>
           <TextField variant="outlined"
@@ -60,14 +60,14 @@ const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
             label='Nome'
             required
           />
-          <LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBR}>
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBR}>
             <DateTimePicker
               label="Data de realização"
               value={dateValue}
               onChange={(newValue) => setDateValue(newValue)}
               renderInput={(params) => <TextField variant="outlined" {...params} required />}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
           <FormControl fullWidth required margin='dense'>
             <InputLabel id="state-label-id">Selecione a casa de evento</InputLabel>
             <Select
@@ -75,7 +75,8 @@ const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
               labelId="state-label-id"
               label="Selecione a casa de evento"
               required
-              {...register('houseId')}>
+            // {...register('houseId')}
+            >
               {houses.map(house => {
                 return <MenuItem value={house.id} key={house.id}>{house.name}</MenuItem>;
               })}

@@ -31,10 +31,10 @@ const HouseCard: FC<Props> = ({ house, handleDeleteHouse, handleSelectHouse, han
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => {
-          handleSelectHouse(house?.id);
+          // handleSelectHouse(house?.id);
           handleShowHouse(true);
         }}>Visualizar</Button>
-        <Button size="small" onClick={() => handleDeleteHouse(house?.id)}>Remover</Button>
+        {/* <Button size="small" onClick={() => handleDeleteHouse(house?.id)}>Remover</Button> */}
       </CardActions>
     </Card >
   )

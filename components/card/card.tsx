@@ -1,13 +1,29 @@
-import { FC } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 import style from "./card.module.css";
 
-interface Props { }
+interface Props {
+  header?: ReactNode;
+  styles?: CSSProperties
+}
 
-const Card: FC<Props> = ({ children }) => {
+const Card: FC<Props> = ({ children, header, styles }) => {
+
+  const HeaderComponent = () => {
+    if (header) {
+      return (
+        <div className={style["header"]}>
+          {header}
+        </div>
+      )
+    } else return <></>
+  }
 
   return (
     <div className={style["card-component"]}>
-      {children}
+      <HeaderComponent />
+      <div className={style["content"]} style={styles}>
+        {children}
+      </div >
     </div>
   )
 }

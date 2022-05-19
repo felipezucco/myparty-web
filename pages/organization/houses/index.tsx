@@ -1,15 +1,12 @@
 import { AxiosError } from "axios";
 import { useState, useEffect, ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import LayoutComponent from "../../components/Layout/layout";
-import { persistHouse } from "../../services/api.house";
-import { getLocals } from "../../services/api.local";
-import { EventDTO } from "../../src/dto/event.dto";
-import { HouseDTO } from "../../src/dto/house.dto";
-import { LocalDTO } from "../../src/dto/local.dto";
-import { ZoneDTO } from "../../src/dto/zone.dto";
-import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import { asyncSetLocals } from "../../src/store/organization_ctx.store";
+import LayoutComponent from "../../../components/Layout/layout";
+import { persistHouse } from "../../../services/api.house";
+import { HouseDTO } from "../../../src/dto/house.dto";
+import { ZoneDTO } from "../../../src/dto/zone.dto";
+import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
+import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization_ctx.store";
 
 const Houses = () => {
 
@@ -18,7 +15,6 @@ const Houses = () => {
   const dispatch = useAppDispatch();
 
   // states
-  // const [localList, setLocalList] = useState<LocalDTO[]>([]);
   const [zoneList, setZoneList] = useState<ZoneDTO[]>([]);
 
   //form-state
@@ -26,14 +22,15 @@ const Houses = () => {
   const { register: zoneRegister, handleSubmit: zoneHandleSubmit } = useForm<ZoneDTO>();
 
   useEffect(() => {
-    if (organization_ctx.organization.id)
-      dispatch(asyncSetLocals(organization_ctx.organization.id));
-  }, [organization_ctx.organization])
+    dispatch(asyncSetLocals(organization_ctx.selected_organization.id!));
+    dispatch(asyncSetHouses(organization_ctx.selected_organization.id!));
+  }, [organization_ctx.selected_organization])
 
   const handleSubmitForm = async () => {
     setValue("zones", zoneList);
     await persistHouse(getValues()).then(res => {
       alert("House created successfully");
+      dispatch(asyncSetHouses(organization_ctx.selected_organization.id!));
     }).catch((err: AxiosError) => {
       alert("Failed to create house. See log for more.");
       console.error(err.message);
@@ -84,6 +81,22 @@ const Houses = () => {
     )
   }
 
+  const HousesList = () => {
+    return (
+      <ul>
+        {organization_ctx.houses.map(house => {
+          return (
+            <li key={house.id}>
+              {house.name} -
+              {house.zones?.map(zone => {
+                return <span key={zone.id}>{zone.name} ({zone.size} m²)</span>
+              })}
+            </li>)
+        })}
+      </ul>
+    )
+  }
+
   return (
     <div>
       <form method="post" onSubmit={handleSubmit(handleSubmitForm)}>
@@ -98,6 +111,7 @@ const Houses = () => {
       <h3>Zones</h3>
       <ZonesComponent />
       <ZoneListComponent />
+      <HousesList />
     </div>
   )
 }

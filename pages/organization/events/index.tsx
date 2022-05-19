@@ -2,51 +2,48 @@ import { AxiosError } from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { parseCookies } from "nookies";
-import { InputText } from "primereact/inputtext";
-import { FunctionComponent, ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import LayoutComponent from "../../components/Layout/layout";
-import { persistEvent } from "../../services/api.event";
-import { getHouses } from "../../services/api.house";
-import { getLocals } from "../../services/api.local";
-import { EventDTO } from "../../src/dto/event.dto";
-import { HouseDTO } from "../../src/dto/house.dto";
-import { LocalDTO } from "../../src/dto/local.dto";
-import { useAppSelector } from "../../src/store/hooks";
+import LayoutComponent from "../../../components/Layout/layout";
+import { persistEvent } from "../../../services/api.event";
+import { EventDTO } from "../../../src/dto/event.dto";
+import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
+import { asyncSetEvents, asyncSetHouses } from "../../../src/store/organization_ctx.store";
 
 const Event = () => {
 
   //context
-  const organization = useAppSelector((state) => state.organization_ctx);
-
-  //states
-  const [houseList, setHouseList] = useState<HouseDTO[]>([]);
+  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  const dispatch = useAppDispatch();
 
   //form-hook
   const { register, handleSubmit, setValue, getValues } = useForm<EventDTO>();
 
   useEffect(() => {
-    loadHouseList();
-  }, [])
-
-  const loadHouseList = async () => {
-    return await getHouses().then(res => {
-      setHouseList(res.data)
-    }).catch((err: AxiosError) => {
-      alert("Error to load house list.")
-    })
-  }
+    dispatch(asyncSetHouses(organization_ctx.selected_organization.id!));
+  }, [organization_ctx.selected_organization.id])
 
   const handleSubmitForm = async () => {
     //set organization into form-hook
-    setValue("organization", organization.organization);
-    console.log(getValues())
+    setValue("organization", organization_ctx.selected_organization);
+
     await persistEvent(getValues()).then(res => {
       alert("Event created successfully.");
+      dispatch(asyncSetEvents(organization_ctx.selected_organization.id!));
     }).catch((err: AxiosError) => {
       console.error(err);
       alert("Failed to create event. See log for more.");
     })
+  }
+
+  const EventsList = () => {
+    return (
+      <ul>
+        {organization_ctx.events.map(event => {
+          return <li key={event.id}>{event.name} / {event.date} - {event.house?.name}</li>
+        })}
+      </ul>
+    )
   }
 
   const HouseSelectComponent = () => {
@@ -54,12 +51,12 @@ const Event = () => {
       <>
         <label htmlFor="house">House</label>
         <select id="house" onChange={(e) => {
-          setValue("house", houseList.filter(h => h.id === Number.parseInt(e.currentTarget.value))[0]);
+          setValue("house", organization_ctx.houses.filter(house => house.id === Number.parseInt(e.currentTarget.value))[0]);
         }}>
           <option selected value={0}>
             Select a house
           </option>
-          {houseList.map(house => {
+          {organization_ctx.houses.map(house => {
             return (
               <option key={house.id} value={house.id}>
                 {house.name} ({house.local?.city} - {house.local?.state}) : {house.zones?.length} zones
@@ -87,6 +84,7 @@ const Event = () => {
           <HouseSelectComponent /><br />
           <button type={"submit"}>Create</button>
         </form>
+        <EventsList />
       </div>
     </>
   )

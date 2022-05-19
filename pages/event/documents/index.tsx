@@ -1,15 +1,19 @@
 import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
-import { FunctionComponent, ReactElement } from "react";
-import LayoutComponent from "../../components/Layout/layout";
+import { ReactElement } from "react";
+import LayoutComponent from "../../../components/Layout/layout";
+import { parseCookies } from 'nookies'
 
-const FinancialComponent = () => {
+const Documents = () => {
+
   return (
-    <div>financeiro</div>
+    <div>
+      Documents
+    </div>
+    // <LayoutDashboard />
   );
 }
 
-FinancialComponent.getLayout = function getLayout(page: ReactElement) {
+Documents.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent>
       {page}
@@ -17,7 +21,7 @@ FinancialComponent.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default FinancialComponent;
+export default Documents;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'eventweb.token': token } = parseCookies(context);

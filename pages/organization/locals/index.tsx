@@ -1,22 +1,28 @@
 import { AxiosError } from "axios";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useForm, UseFormGetValues } from "react-hook-form";
-import LayoutComponent from "../../components/Layout/layout";
-import { persistLocal } from "../../services/api.local";
-import { LocalDTO } from "../../src/dto/local.dto";
-import { useAppSelector } from "../../src/store/hooks";
+import LayoutComponent from "../../../components/Layout/layout";
+import { persistLocal } from "../../../services/api.local";
+import { LocalDTO } from "../../../src/dto/local.dto";
+import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
+import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
 
 const Locals = () => {
 
   //context
-  const global = useAppSelector((state) => state.organization_ctx);
+  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  const dispatch = useAppDispatch();
 
   //state
   const { register, handleSubmit, getValues, setValue } = useForm<LocalDTO>();
 
+  useEffect(() => {
+    dispatch(asyncSetLocals(organization_ctx.selected_organization.id!));
+  }, [])
+
   const handleSubmitForm = () => {
     // set organization
-    setValue("organization", global.organization);
+    setValue("organization", organization_ctx.selected_organization);
 
     createLocal(getValues());
   }
@@ -28,6 +34,16 @@ const Locals = () => {
       console.error("Error to create local:", err.message);
       alert("Error to create local. See log to more.")
     })
+  }
+
+  const LocalsList = () => {
+    return (
+      <ul>
+        {organization_ctx.locals.map(local => {
+          return <li key={local.id}>{local.aisle} - {local.city} <a href="/">Editar</a> <a href="/">Deletar</a></li>
+        })}
+      </ul>
+    )
   }
 
   return (
@@ -49,8 +65,8 @@ const Locals = () => {
         <label htmlFor="number">State</label>
         <input type={"text"} {...register("state")} maxLength={2} /><br />
         <button type={"submit"}>Create</button>
-
       </form>
+      <LocalsList />
     </>
 
   )

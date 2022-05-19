@@ -11,3 +11,11 @@ export async function persistEvent(data: EventDTO) {
 export async function getEvents(): Promise<AxiosResponse<EventDTO[]>> {
   return await api.get(ENDPOINT);
 }
+
+export async function getEventsByOrganizationId(id: number): Promise<AxiosResponse<EventDTO[]>> {
+  return await api.get(ENDPOINT + `/org/${id}`);
+}
+
+export async function getEventById(id: number): Promise<AxiosResponse<EventDTO>> {
+  return await api.get(ENDPOINT + `/${id}`);
+}

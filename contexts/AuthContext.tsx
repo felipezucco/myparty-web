@@ -2,14 +2,14 @@ import { createContext, useEffect, useState } from "react";
 import { SignInRequestType } from "../pages/auth/signin";
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import Router from "next/router";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import api from "../services/api";
 
 export type AuthContextType = {
   isAuthenticated: boolean,
-  signIn: (login: SignInRequestType) => void,
+  signIn: (login: SignInRequestType) => Promise<AxiosResponse<any, any>>,
   signOut: () => void,
-  user: UserDTO | null
+  user: UserDTO
 }
 
 export type AuthResponseType = {
@@ -18,9 +18,9 @@ export type AuthResponseType = {
 }
 
 export type UserDTO = {
-  username: string,
-  name: string,
-  email: string,
+  username?: string,
+  name?: string,
+  email?: string,
   id?: number
 }
 
@@ -36,13 +36,13 @@ const DEFAULT_AUTH_RESPONSE: AuthResponseType = {
 
 const DEFAULT_CONTEXT: AuthContextType = {
   isAuthenticated: false,
-  signIn: function (login: SignInRequestType): void {
+  signIn: function (login: SignInRequestType): Promise<AxiosResponse<any, any>> {
     throw new Error("Function not implemented.");
   },
   signOut: function (): void {
     throw new Error("Function not implemented.");
   },
-  user: null
+  user: {}
 };
 
 export const AuthContext = createContext(DEFAULT_CONTEXT);
@@ -63,10 +63,10 @@ export const AuthProvider = ({ children }: any) => {
     }
   }, [])
 
-  async function signIn(login: SignInRequestType) {
-    await api.post('/api/auth', login)
-      .then(data => authSuccess(data.data))
-      .catch(error => { throw error });
+  async function signIn(login: SignInRequestType): Promise<AxiosResponse<any, any>> {
+    let result = api.post('/api/auth', login);
+    result.then(data => authSuccess(data.data));
+    return await result;
   }
 
   async function signOut() {
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: any) => {
     setUser(auth.user);
 
     api.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
-    Router.push('/dashboard');
+    Router.push('/organization/dashboard');
   }
 
   function clearAuth() {

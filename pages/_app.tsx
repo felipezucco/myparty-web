@@ -1,4 +1,5 @@
-import '../styles/globals.css'
+import "../styles/app.css";
+import '../styles/globals.scss';
 import type { AppProps } from 'next/app'
 import 'primeflex/primeflex.css';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -11,7 +12,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import "../styles/app.css";
 import { store } from '../src/store/store';
 import { Provider } from 'react-redux';
 

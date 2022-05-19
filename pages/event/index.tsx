@@ -1,18 +1,20 @@
-import { ReactElement } from "react";
+import { GetServerSideProps } from "next";
+import { ReactElement, useEffect } from "react";
 import LayoutComponent from "../../components/Layout/layout";
-import { GetServerSideProps, GetServerSidePropsContext, PreviewData } from 'next'
+import { destroyCookie, parseCookies } from 'nookies'
 import { getAPIClient } from "../../services/axios";
-import { ParsedUrlQuery } from "querystring";
-import { parseCookies } from "nookies";
-import { AxiosResponse } from "axios";
+import LayoutDashboard from "../../components/Layout/dashboard/layout_dashboard";
 
-const TicketComponent = () => {
+const Events = () => {
+
   return (
-    <div>ingressos</div>
+    <div>
+      new event
+    </div>
   );
 }
 
-TicketComponent.getLayout = function getLayout(page: ReactElement) {
+Events.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent>
       {page}
@@ -20,7 +22,7 @@ TicketComponent.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default TicketComponent;
+export default Events;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'eventweb.token': token } = parseCookies(context);

@@ -7,7 +7,7 @@ interface Props { }
 const Main: FC<Props> = ({ children }) => {
 
   return (
-    <Card>
+    <Card >
       <div className={style['main-section']} >
         {children}
       </div>

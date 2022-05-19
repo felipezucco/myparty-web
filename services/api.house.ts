@@ -24,3 +24,7 @@ export async function getHouseById(ids: number[]) {
 export async function deleteHouse(id: number) {
   return await api.delete(HOUSE_API + `/${id}`);
 }
+
+export async function getHousesByOrganizationId(id: number): Promise<AxiosResponse<HouseDTO[]>> {
+  return await api.get(HOUSE_API + `/org/${id}`);
+}

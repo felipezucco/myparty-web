@@ -16,7 +16,7 @@ const LayoutDashboard = () => {
   async function getOrganizers() {
     await getOrganizerByUser(ctx.user).then(res => {
       console.log(res);
-      setOrganizers(res.data);
+      // setOrganizers(res.data);
     });
     // await getOrganizerByUser(ctx.user).then(res => {
     //   setOrganizers(res.data);
@@ -30,29 +30,19 @@ const LayoutDashboard = () => {
         maxHeight: '500px',
         overflow: 'auto',
       }}>
-        {organizers.map(org => {
+        {/* {organizers.map(org => {
           return (
             <ListItem key={org.id}>
               <ListItemText primary={`${org.organization?.name} ${org.role === 1 ? ' (Owner)' : ''}`} secondary={`${org.organization?.organizers?.length} organizers`} />
             </ListItem>
           )
-        })}
+        })} */}
       </List >
     )
   }
 
   return (
-    <Card sx={{ padding: '20px', borderRadius: '1px', minWidth: '500px' }}>
-      <CardContent>
-        <Typography>
-          {ctx.user?.name}
-        </Typography>
-        <OrganizationsList />
-      </CardContent>
-      <CardActions>
-        <Button onClick={() => ctx.signOut()} >Sair</Button>
-      </CardActions>
-    </Card>
+    <div>dashboard</div>
   )
 
 }

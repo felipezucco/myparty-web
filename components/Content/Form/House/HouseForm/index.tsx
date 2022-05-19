@@ -40,16 +40,16 @@ const HouseForm: FC<Props> = ({ onClose, setStatus, status }) => {
     let newHouse: HouseType = data;
     console.log('newHouse', newHouse);
 
-    setSending(true);
-    return persistHouse(newHouse)
-      .then(() => {
-        setShowToastMessage(true);
-        setSending(false);
-        onClose();
-        setStatus(false);
-      })
-      .catch(err => console.error(err))
-      .finally(() => setSending(false))
+    // setSending(true);
+    // return persistHouse(newHouse)
+    //   .then(() => {
+    //     setShowToastMessage(true);
+    //     setSending(false);
+    //     onClose();
+    //     setStatus(false);
+    //   })
+    //   .catch(err => console.error(err))
+    //   .finally(() => setSending(false))
   }
 
   function ToastMessage() {
@@ -106,11 +106,11 @@ const HouseForm: FC<Props> = ({ onClose, setStatus, status }) => {
   function DialogHeader() {
     return (
       <>
-        <IconButton onClick={() => {
+        {/* <IconButton onClick={() => {
           setStatus(false)
         }}>
           <Close />
-        </IconButton>
+        </IconButton> */}
       </>
     )
   }

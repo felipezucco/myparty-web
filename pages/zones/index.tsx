@@ -32,7 +32,7 @@ const ZonesComponent = () => {
   async function loadHouses() {
     await getHouses().then(res => {
       console.log(res.data);
-      setHouses(res.data);
+      // setHouses(res.data);
     }).catch((err: AxiosError) => console.error(err.response?.data));
   }
 
@@ -53,7 +53,7 @@ const ZonesComponent = () => {
       <HouseView show={showHouse} handleShowDialog={setShowHouse} houseId={selectedHouse} />
       <HouseForm status={openHouseForm} onClose={() => loadHouses()} setStatus={setOpenHouseForm} />
       <EventForm status={openEventForm} setStatus={setOpenEventForm} />
-      <OrganizationForm status={openOrganizetionForm} setStatus={setOpenOrganizationForm} />
+      {/* <OrganizationForm status={openOrganizetionForm} setStatus={setOpenOrganizationForm} /> */}
     </>)
   }
 
