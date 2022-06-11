@@ -1,0 +1,23 @@
+@import "./../../styles/theme.module";
+
+.card-component {
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.card-header-component {
+  color: $primary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+
+  .title {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .icon {
+    cursor: pointer;
+  }
+}

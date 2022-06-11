@@ -1,0 +1,73 @@
+@use "sass:color";
+@use "../card/card.module" as card;
+@import "./../../styles/theme.module";
+
+.organization-section {
+  margin: 20px 0;
+
+  .organization-list-component {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    height: 200px;
+    overflow-y: scroll;
+    padding: 3px;
+    margin: 5px 0;
+
+    .organization {
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      grid-column-gap: 5px;
+      grid-template-areas:
+        "img content";
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgb(247, 247, 247);
+      }
+
+      .img {
+        max-width: 100%;
+        height: 100%;
+        grid-area: img;
+      }
+
+      .info-content {
+        padding: 5px;
+        grid-area: content;
+        display: flex;
+        flex-direction: column;
+        font-family: "Inter-Light";
+
+        &-name {
+          font-family: "Inter-Bold";
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          max-width: 100px;
+        }
+
+        &-qualifier {
+          font-size: 11px;
+          color: $primary-color;
+          font-weight: 500;
+        }
+
+        &-information {
+          font-size: 11px;
+        }
+      }
+    }
+
+    .organization-selected {
+      @extend .organization;
+      background-color: color.adjust($primary-color, $alpha: -0.93);
+      outline: 2px solid $primary-color;
+
+      &:hover {
+        background-color: color.adjust($primary-color, $alpha: -0.93);
+      }
+    }
+  }
+}

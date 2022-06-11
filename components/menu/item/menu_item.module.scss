@@ -8,20 +8,30 @@
   align-items: center;
   cursor: pointer;
   padding: 10px;
-  font-family: 'Inter-Light';
-}
+  font-size: 12px;
 
-.menu-item-component:hover {
-  background-color: $primary-color;
-  color: $white-color;
+  &:hover {
+    background-color: $primary-color;
+    color: $white-color;
 
-  .icon {
-    background-color: $white-color;
+    .icon {
+      background-color: $white-color;
+    }
   }
-}
 
-.menu-item-component .title {
-  text-align: start;
-  display: flex;
-  align-items: center;
+  &-selected {
+    @extend .menu-item-component;
+    background-color: $primary-color;
+    color: $white-color;
+
+    .icon {
+      background-color: $white-color;
+    }
+  }
+
+  .title {
+    text-align: start;
+    display: flex;
+    align-items: center;
+  }
 }

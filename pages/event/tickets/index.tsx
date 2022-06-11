@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 import { GetServerSideProps } from 'next'
 import { parseCookies } from "nookies";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";

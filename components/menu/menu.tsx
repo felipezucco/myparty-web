@@ -1,5 +1,5 @@
 import { FC } from "react";
-import style from "./menu.module.css";
+import style from "./menu.module.scss";
 
 const Menu: FC = ({ children }) => {
 

@@ -4,7 +4,7 @@ import Head from "next/head";
 import { parseCookies } from "nookies";
 import { ReactElement, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 import { persistEvent } from "../../../services/api.event";
 import { EventDTO } from "../../../src/dto/event.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";

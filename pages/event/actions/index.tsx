@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 import { parseCookies } from 'nookies'
 
 const Actions = () => {

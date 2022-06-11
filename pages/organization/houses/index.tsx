@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useState, useEffect, ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 import { persistHouse } from "../../../services/api.house";
 import { HouseDTO } from "../../../src/dto/house.dto";
 import { ZoneDTO } from "../../../src/dto/zone.dto";
@@ -10,6 +10,9 @@ import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization_
 
 const Houses = () => {
 
+  // return (
+  //   <div>deu boa</div>
+  // )
   //contexts
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
   const dispatch = useAppDispatch();

@@ -1,9 +1,7 @@
 import { GetServerSideProps } from "next";
 import { ReactElement, useEffect } from "react";
-import LayoutComponent from "../../components/Layout/layout";
-import { destroyCookie, parseCookies } from 'nookies'
-import { getAPIClient } from "../../services/axios";
-import LayoutDashboard from "../../components/Layout/dashboard/layout_dashboard";
+import LayoutComponent from "../../components/layout/layout";
+import { destroyCookie, parseCookies } from 'nookies';
 
 const Events = () => {
 

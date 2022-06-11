@@ -1,14 +1,13 @@
 import { GetServerSideProps } from "next";
 import { ReactElement, useEffect } from "react";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 import { destroyCookie, parseCookies } from 'nookies'
 import { getAPIClient } from "../../../services/axios";
-import LayoutDashboard from "../../../components/Layout/dashboard/layout_dashboard";
 
 const Dashboard = () => {
 
   return (
-    <LayoutDashboard />
+    <div>dashboard da organização</div>
   );
 }
 

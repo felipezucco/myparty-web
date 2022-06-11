@@ -1,0 +1,10 @@
+@import "./../../card/card.module.scss";
+
+.right-section {
+  grid-area: right;
+}
+
+.right-card-component {
+  @extend .card-component;
+  padding: 20px;
+}

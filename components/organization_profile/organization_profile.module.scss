@@ -1,0 +1,38 @@
+.organization_profile_component {
+
+  .header {
+    position: relative;
+    $avatar-height: 100px;
+
+    .avatar {
+      height: $avatar-height;
+      overflow: hidden;
+
+      img {
+        position: relative;
+        // bottom: 50%;
+        max-width: 100%;
+        transform: translateY(calc(-50% + $avatar-height/2));
+      }
+    }
+
+    .name {
+      position: absolute;
+      font-size: 1.7em;
+      font-family: "Inter-Bold";
+      grid-area: name;
+      background-color: white;
+      bottom: 0;
+      padding: 5px 5px;
+      border-top-right-radius: 4px;
+    }
+
+    .role {
+      position: absolute;
+      font-family: "Inter-ExtraLight";
+      grid-area: role;
+    }
+
+  }
+
+}

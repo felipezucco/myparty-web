@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { FunctionComponent, ReactElement } from "react";
-import LayoutComponent from "../../../components/Layout/layout";
+import LayoutComponent from "../../../components/layout/layout";
 
 const FinancialComponent = () => {
   return (

@@ -83,12 +83,14 @@ body>#__next {
 ::-webkit-scrollbar-track {
   background: #00000005;
   border-radius: 10px;
+  display: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #00000030;
   border-radius: 10px;
+  display: none;
 }
 
 /* Handle on hover */

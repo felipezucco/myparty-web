@@ -1,5 +1,5 @@
 import { CSSProperties, FC, ReactNode } from "react";
-import style from "./card.module.css";
+import style from "./_card.module.scss";
 
 interface Props {
   header?: ReactNode;

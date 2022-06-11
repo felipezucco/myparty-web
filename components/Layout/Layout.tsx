@@ -1,12 +1,7 @@
-import { Card } from "primereact/card";
 import { FunctionComponent } from "react";
-import Content from "../Content/Content";
-import FooterComponent from "../Footer/Footer";
-import Profile from "../right/profile/profile";
-import Left from "../left/left";
-import Main from "../main/main";
-import Organization from "../right/organizations/organization";
-import Right from "../right/right";
+import Left from "./left/left";
+import Main from "./main/main";
+import Right from "./right/right";
 import style from "./layout.module.css";
 
 interface LayoutComponentProps { }

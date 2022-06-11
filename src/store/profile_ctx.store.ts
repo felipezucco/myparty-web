@@ -17,7 +17,11 @@ const profile_ctx = createSlice({
     setOrganizations(state, action: PayloadAction<OrganizerDTO[]>) {
       state.organizations = action.payload;
     }
-  }
+  },
+  extraReducers: {
+    'organization_ctx/selected_organization': () => console.log('toop')
+
+  },
 });
 
 export const { setStatus, setOrganizations } = profile_ctx.actions;
