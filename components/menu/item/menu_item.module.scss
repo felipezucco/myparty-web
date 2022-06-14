@@ -1,4 +1,14 @@
+@use "sass:color";
 @import "./../../../styles/theme.module.scss";
+
+.hover-selected {
+  background-color: color.adjust($primary-color, $alpha: -0.8);
+  color: $primary-color;
+
+  .icon {
+    background-color: $primary-color;
+  }
+}
 
 .menu-item-component {
   font-weight: 500;
@@ -11,22 +21,12 @@
   font-size: 12px;
 
   &:hover {
-    background-color: $primary-color;
-    color: $white-color;
-
-    .icon {
-      background-color: $white-color;
-    }
+    @extend .hover-selected;
   }
 
   &-selected {
     @extend .menu-item-component;
-    background-color: $primary-color;
-    color: $white-color;
-
-    .icon {
-      background-color: $white-color;
-    }
+    @extend .hover-selected;
   }
 
   .title {

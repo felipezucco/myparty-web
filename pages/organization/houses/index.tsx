@@ -7,12 +7,10 @@ import { HouseDTO } from "../../../src/dto/house.dto";
 import { ZoneDTO } from "../../../src/dto/zone.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization_ctx.store";
+import { getMenu } from "../../_default";
 
 const Houses = () => {
 
-  // return (
-  //   <div>deu boa</div>
-  // )
   //contexts
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
   const dispatch = useAppDispatch();
@@ -122,7 +120,7 @@ export default Houses;
 
 Houses.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Houses")}>
       {page}
     </LayoutComponent>
   )

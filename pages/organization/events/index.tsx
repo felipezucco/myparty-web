@@ -9,6 +9,7 @@ import { persistEvent } from "../../../services/api.event";
 import { EventDTO } from "../../../src/dto/event.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetEvents, asyncSetHouses } from "../../../src/store/organization_ctx.store";
+import { getMenu } from "../../_default";
 
 const Event = () => {
 
@@ -74,7 +75,6 @@ const Event = () => {
         <title>Tendel FC Web | Eventos</title>
       </Head>
       <div>
-        <h1>Eventos</h1>
         <form method="post" onSubmit={handleSubmit(handleSubmitForm)}>
           <label htmlFor="name">Name</label>
           <input id="name" type={"text"} {...register("name")}></input><br />
@@ -92,7 +92,7 @@ const Event = () => {
 
 Event.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Events")}>
       {page}
     </LayoutComponent>
   )

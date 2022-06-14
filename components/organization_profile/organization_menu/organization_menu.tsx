@@ -5,14 +5,17 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import HouseIcon from '@mui/icons-material/House';
 import MapIcon from '@mui/icons-material/Map';
+import { ORGANIZATION_MENU } from "../../../pages/_default";
 
 const OrganizationMenu = () => {
 
   const MenuItems = () => {
+    console.log(Object.entries(ORGANIZATION_MENU));
+
     return (
       <Menu>
-        {data.map(d => {
-          return <MenuItem href={d.link} key={d.id} name={d.name} icon={d.icon!} />
+        {ORGANIZATION_MENU.map((d, idx) => {
+          return <MenuItem href={d.link} key={idx} name={d.name} icon={d.icon!} />
         })}
       </Menu>
     )

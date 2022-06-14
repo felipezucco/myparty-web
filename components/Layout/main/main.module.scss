@@ -1,0 +1,43 @@
+@use "sass:color";
+@use "../../card/card.module" as card;
+@import "../../../styles/theme.module";
+@import "../../menu/item/menu_item.module.scss";
+
+.main-section {
+  @extend .card-component;
+  grid-area: main;
+  width: 100%;
+
+  &-header {
+    display: flex;
+    column-gap: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    align-items: center;
+  }
+
+  &-menu {
+    display: flex;
+    column-gap: 10px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    list-style: none;
+    background-color: color.adjust($primary-color, $alpha: -0.85);
+
+    .menu-item-component {
+      cursor: pointer;
+      color: $primary-color;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+    }
+  }
+
+  &-content {
+    padding: 10px;
+  }
+}

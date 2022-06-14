@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { FunctionComponent, ReactElement } from "react";
 import LayoutComponent from "../../../components/layout/layout";
+import { getMenu } from "../../_default";
 
 const FinancialComponent = () => {
   return (
@@ -11,7 +12,7 @@ const FinancialComponent = () => {
 
 FinancialComponent.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Financial")}>
       {page}
     </LayoutComponent>
   )

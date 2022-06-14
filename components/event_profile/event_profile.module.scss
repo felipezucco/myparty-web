@@ -1,8 +1,9 @@
+@use "sass:color";
 @import "../../styles/theme.module";
 
 .event-select-component {
   border-radius: 5px 5px 0 0;
-  background-color: $primary-color;
+  background-color: color.adjust($primary-color, $alpha: -0.8);
   display: flex;
   padding: 10px;
 }

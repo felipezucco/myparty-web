@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
 import { getMenu, ORGANIZATION_MENU } from "../../_default";
 
-const Locals = () => {
+const NewLocals = () => {
 
   //context
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
@@ -49,7 +49,7 @@ const Locals = () => {
 
   return (
     <>
-      {/* <form method="post" onSubmit={handleSubmit(handleSubmitForm)}>
+      <form method="post" onSubmit={handleSubmit(handleSubmitForm)}>
         <label htmlFor="aisle">Aisle</label>
         <input type={"text"} {...register("aisle")} /><br />
         <label htmlFor="block">Block</label>
@@ -65,15 +65,15 @@ const Locals = () => {
         <label htmlFor="number">State</label>
         <input type={"text"} {...register("state")} maxLength={2} /><br />
         <button type={"submit"}>Create</button>
-      </form> */}
-      <LocalsList />
+      </form>
+      {/* <LocalsList /> */}
     </>
 
   )
 }
-export default Locals;
+export default NewLocals;
 
-Locals.getLayout = function getLayout(page: ReactElement) {
+NewLocals.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent name={getMenu("Locals")}>
       {page}

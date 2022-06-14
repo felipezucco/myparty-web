@@ -1,19 +1,22 @@
 import { GetServerSideProps } from "next";
-import { ReactElement, useEffect } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import LayoutComponent from "../../../components/layout/layout";
 import { destroyCookie, parseCookies } from 'nookies'
-import { getAPIClient } from "../../../services/axios";
+import { NextPageWithLayout } from "../../_app";
+import { getMenu } from "../../_default";
 
-const Dashboard = () => {
+const Dashboard: NextPageWithLayout = () => {
 
   return (
-    <div>dashboard da organização</div>
+    <div>
+      dashboard da organização
+    </div>
   );
 }
 
 Dashboard.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Dashboard")}>
       {page}
     </LayoutComponent>
   )
