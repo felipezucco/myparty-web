@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { getOrganizerRule } from "../../models/organizations";
 import AddIcon from '@mui/icons-material/Add';
@@ -7,18 +7,30 @@ import OrganizationForm from "../Content/Form/Organization";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
 import { setStatus, asyncOrganizations } from "../../src/store/profile_ctx.store";
 import { asyncSetOrganization } from "../../src/store/organization_ctx.store";
+import { OrganizationDTO, OrganizerDTO } from "../../src/dto/organization.dto";
 
 const Organization = () => {
 
   // context
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
-  const organization = useAppSelector((state) => state.profile_ctx);
-  const global = useAppSelector((state) => state.organization_ctx);
+  const profile_ctx = useAppSelector((state) => state.profile_ctx);
+  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+
+  // state
+  const [organizations, setOrganizations] = useState<OrganizerDTO[]>([] as OrganizerDTO[]);
 
   useEffect(() => {
     dispatch(asyncOrganizations(ctx.user));
   }, [])
+
+  useEffect(() => {
+    if (profile_ctx.organizations && profile_ctx.organizations.length > 0) {
+      let organizationSorted = [...profile_ctx.organizations];
+      organizationSorted.sort(a => a.organization?.id === organization_ctx.selected_organization.id ? -1 : 1);
+      setOrganizations(organizationSorted);
+    }
+  }, [profile_ctx.organizations, organization_ctx.selected_organization.id])
 
   const HeaderComponent = () => {
     return (
@@ -33,18 +45,18 @@ const Organization = () => {
 
   const OrganizationListComponent = () => {
 
-    const isSelectedOrganization = (id: number) => global.selected_organization.id === id;
+    const isSelectedOrganization = (id: number) => organization_ctx.selected_organization.id === id;
     const getSelectedOrganizationClass = (id: number) => isSelectedOrganization(id) ? "organization-selected" : "organization";
 
     return (
       <ul className={style["organization-list-component"]}>
-        {organization.organizations.map(userOrganization => {
+        {organizations.map(userOrganization => {
           return (
             <li key={userOrganization.organization?.id}
               className={style[getSelectedOrganizationClass(userOrganization.organization?.id!)]}
               onClick={() => dispatch(asyncSetOrganization(userOrganization.organization?.id!))}>
               <div className={style["info-content"]}>
-                <span className={style["info-content-name"]}>{userOrganization.organization?.name}</span>
+                <span className={style["info-content-name"]}>{userOrganization.organization?.id!} - {userOrganization.organization?.name}</span>
                 <span className={style["info-content-qualifier"]}>{getOrganizerRule(userOrganization.role!)}</span>
                 <span className={style["info-content-information"]}>{userOrganization.organization?.organizers?.length} organizers </span>
               </div>
@@ -55,6 +67,30 @@ const Organization = () => {
       </ul>
     )
   }
+  // const OrganizationListComponent = () => {
+
+  //   const isSelectedOrganization = (id: number) => organization_ctx.selected_organization.id === id;
+  //   const getSelectedOrganizationClass = (id: number) => isSelectedOrganization(id) ? "organization-selected" : "organization";
+
+  //   return (
+  //     <ul className={style["organization-list-component"]}>
+  //       {profile_ctx.organizations.map(userOrganization => {
+  //         return (
+  //           <li key={userOrganization.organization?.id}
+  //             className={style[getSelectedOrganizationClass(userOrganization.organization?.id!)]}
+  //             onClick={() => dispatch(asyncSetOrganization(userOrganization.organization?.id!))}>
+  //             <div className={style["info-content"]}>
+  //               <span className={style["info-content-name"]}>{userOrganization.organization?.name}</span>
+  //               <span className={style["info-content-qualifier"]}>{getOrganizerRule(userOrganization.role!)}</span>
+  //               <span className={style["info-content-information"]}>{userOrganization.organization?.organizers?.length} organizers </span>
+  //             </div>
+  //             <img className={style["img"]} src={"/cute-monkey-sitting-banana_138676-3305.webp"} width={50} height={50} />
+  //           </li>
+  //         )
+  //       })}
+  //     </ul>
+  //   )
+  // }
 
   return (
     <div className={style["organization-section"]}>

@@ -4,12 +4,12 @@ import Head from "next/head";
 import { parseCookies } from "nookies";
 import { ReactElement, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import getMenu from "../../../components/default";
 import LayoutComponent from "../../../components/layout/layout";
 import { persistEvent } from "../../../services/api.event";
 import { EventDTO } from "../../../src/dto/event.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetEvents, asyncSetHouses } from "../../../src/store/organization_ctx.store";
-import { getMenu } from "../../_default";
 
 const Event = () => {
 

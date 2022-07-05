@@ -1,5 +1,5 @@
 import { FC, ReactNode, useEffect } from "react";
-import { MenuTreeType } from "../../../pages/_default";
+import { MenuTreeType } from "../../default";
 import MenuItem from "../../menu/item/menu_item";
 import style from "./main.module.scss";
 

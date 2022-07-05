@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
 import { ReactElement, useEffect } from "react";
 import { useForm, UseFormGetValues } from "react-hook-form";
+import getMenu from "../../../components/default";
 import LayoutComponent from "../../../components/layout/layout";
 import { persistLocal } from "../../../services/api.local";
 import { LocalDTO } from "../../../src/dto/local.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
-import { getMenu, ORGANIZATION_MENU } from "../../_default";
 
 const NewLocals = () => {
 

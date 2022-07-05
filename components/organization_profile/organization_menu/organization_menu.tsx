@@ -5,7 +5,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import HouseIcon from '@mui/icons-material/House';
 import MapIcon from '@mui/icons-material/Map';
-import { ORGANIZATION_MENU } from "../../../pages/_default";
+import { ORGANIZATION_MENU } from "../../default";
 
 const OrganizationMenu = () => {
 

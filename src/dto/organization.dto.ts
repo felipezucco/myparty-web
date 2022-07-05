@@ -3,7 +3,7 @@ import { UserDTO } from "../../contexts/AuthContext"
 export interface OrganizationDTO {
   id?: number,
   name?: string,
-  organizers?: OrganizerWithoutOrganizationDTO[]
+  organizers?: OrganizerWithoutOrganizationDTO[],
 }
 
 export interface OrganizerDTO {

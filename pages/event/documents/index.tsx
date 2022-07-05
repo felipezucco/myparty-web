@@ -1,7 +1,8 @@
 import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
 import LayoutComponent from "../../../components/layout/layout";
-import { parseCookies } from 'nookies'
+import { parseCookies } from 'nookies';
+import getMenu from "../../../components/default";
 
 const Documents = () => {
 
@@ -15,7 +16,7 @@ const Documents = () => {
 
 Documents.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Events")}>
       {page}
     </LayoutComponent>
   )

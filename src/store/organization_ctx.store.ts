@@ -37,7 +37,6 @@ const organization_ctx = createSlice({
     },
     selectEvent(state: Props, action: PayloadAction<EventDTO>) {
       state.selected_event = action.payload;
-      Router.push("/event/dashboard");
     },
     setLocals(state: Props, action: PayloadAction<LocalDTO[]>) {
       state.locals = action.payload;

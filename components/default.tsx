@@ -27,6 +27,7 @@ export const ORGANIZATION_MENU: MenuTreeType[] = [
   },
 ]
 
-export const getMenu = (name: string): MenuTreeType => {
+const getMenu = (name: string): MenuTreeType => {
   return ORGANIZATION_MENU.find(om => om.name === name) ?? {} as MenuTreeType;
 }
+export default getMenu;

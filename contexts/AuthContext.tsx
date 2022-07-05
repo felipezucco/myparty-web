@@ -9,7 +9,8 @@ export type AuthContextType = {
   isAuthenticated: boolean,
   signIn: (login: SignInRequestType) => Promise<AxiosResponse<any, any>>,
   signOut: () => void,
-  user: UserDTO
+  user: UserDTO,
+  token: string
 }
 
 export type AuthResponseType = {
@@ -42,7 +43,8 @@ const DEFAULT_CONTEXT: AuthContextType = {
   signOut: function (): void {
     throw new Error("Function not implemented.");
   },
-  user: {}
+  user: {},
+  token: ""
 };
 
 export const AuthContext = createContext(DEFAULT_CONTEXT);
@@ -50,6 +52,7 @@ export const AuthContext = createContext(DEFAULT_CONTEXT);
 export const AuthProvider = ({ children }: any) => {
 
   const [user, setUser] = useState<UserDTO>(DEFAULT_AUTH_RESPONSE.user);
+  const [token, setToken] = useState<string>("");
   const isAuthenticated = !!user;
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export const AuthProvider = ({ children }: any) => {
       path: '/'
     });
     setUser(auth.user);
-
+    setToken(auth.token);
     api.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
     Router.push('/organization/dashboard');
   }
@@ -99,11 +102,10 @@ export const AuthProvider = ({ children }: any) => {
     destroyCookie({}, 'eventweb.token', { path: '/' })
     setUser(DEFAULT_AUTH_RESPONSE.user);
     delete api.defaults.headers.common["Authorization"];
-    //Router.push('/');
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user, token }}>
       {children}
     </AuthContext.Provider>
   )

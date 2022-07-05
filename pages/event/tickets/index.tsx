@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { TicketBatchDTO, TicketDTO } from "../../../src/dto/ticket.dto";
 import { deleteTicketBatchById, deleteTicketById, persistTicket } from "../../../services/api.ticket";
 import { AxiosError } from "axios";
+import getMenu from "../../../components/default";
 
 const TicketComponent = () => {
 
@@ -115,7 +116,7 @@ const TicketComponent = () => {
 
 TicketComponent.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent>
+    <LayoutComponent name={getMenu("Events")}>
       {page}
     </LayoutComponent>
   )

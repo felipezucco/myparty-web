@@ -3,7 +3,7 @@ import { FC, ReactElement, useEffect } from "react";
 import LayoutComponent from "../../../components/layout/layout";
 import { destroyCookie, parseCookies } from 'nookies'
 import { NextPageWithLayout } from "../../_app";
-import { getMenu } from "../../_default";
+import getMenu from "../../../components/default";
 
 const Dashboard: NextPageWithLayout = () => {
 
