@@ -4,24 +4,24 @@ import { useForm } from "react-hook-form";
 import LayoutComponent from "../../../components/layout/layout";
 import getMenu from "../../../components/default";
 import { persistHouse } from "../../../services/api.house";
-import { HouseDTO } from "../../../src/dto/house.dto";
-import { ZoneDTO } from "../../../src/dto/zone.dto";
+import { GetHouse, PersistHouse } from "../../../src/dto/house.dto";
+import { PersistZone, GetZone } from "../../../src/dto/zone.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization_ctx.store";
 
 
-const Houses = () => {
+const HousePage = () => {
 
-  //contexts
-  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  // Contexts
+  const organization_ctx = useAppSelector(state => state.organization_ctx);
   const dispatch = useAppDispatch();
+  // States
+  const [zoneList, setZoneList] = useState<PersistZone[]>([]);
+  // Hook-Form
+  const { register, handleSubmit, setValue, getValues } = useForm<PersistHouse>();
+  const { register: zoneRegister, handleSubmit: zoneHandleSubmit } = useForm<PersistZone>();
 
-  // states
-  const [zoneList, setZoneList] = useState<ZoneDTO[]>([]);
-
-  //form-state
-  const { register, handleSubmit, setValue, getValues } = useForm<HouseDTO>();
-  const { register: zoneRegister, handleSubmit: zoneHandleSubmit } = useForm<ZoneDTO>();
+  /* Methods */
 
   useEffect(() => {
     dispatch(asyncSetLocals(organization_ctx.selected_organization.id!));
@@ -43,11 +43,11 @@ const Houses = () => {
     return (
       <>
         <label htmlFor="local">Local</label>
-        <select id="local" onChange={(e) =>
-          setValue("local", organization_ctx.locals.filter(local => local.id === Number.parseInt(e.currentTarget.value))[0])}>
-          {organization_ctx.locals.map(local => {
+        <select id="local" onChange={(e) => setValue("localId", Number.parseInt(e.target.value))}>
+          {organization_ctx.locals.map((local, idx) => {
+            { idx === 0 ? setValue("localId", local.id!) : "" }
             return (
-              <option key={local.id} value={local.id}>
+              <option selected={idx === 0} key={local.id} value={local.id}>
                 {local.city} - {local.state}: {local.aisle}, {local.block}, {local.number}, {local.complement} ({local.code})
               </option>
             )
@@ -57,7 +57,7 @@ const Houses = () => {
     )
   }
 
-  const addZoneHandleSubmit = (data: ZoneDTO) => {
+  const addZoneHandleSubmit = (data: PersistZone) => {
     setZoneList([...zoneList, data]);
   }
 
@@ -117,9 +117,9 @@ const Houses = () => {
     </div>
   )
 }
-export default Houses;
+export default HousePage;
 
-Houses.getLayout = function getLayout(page: ReactElement) {
+HousePage.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent name={getMenu("Houses")}>
       {page}

@@ -6,8 +6,8 @@ import { FC, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { DialogInterface } from "../../../../src/interface/DialogInterface";
-import { OrganizationDTO, OrganizerDTO } from "../../../../src/dto/organization.dto";
-import { AuthContext, UserDTO } from "../../../../contexts/AuthContext";
+import { GetOrganization, GetOrganizerWithOrganization, PersistOrganization } from "../../../../src/dto/organization.dto";
+import { AuthContext } from "../../../../contexts/AuthContext";
 import { getUserByEmail } from "../../../../services/api.user";
 import { persistOrganization } from "../../../../services/api.org";
 import { RoleEnum } from "../../../../src/enum/RoleEnum";
@@ -15,26 +15,27 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../src/store/store";
 import { useAppDispatch, useAppSelector } from "../../../../src/store/hooks";
 import { asyncOrganizations, setStatus } from "../../../../src/store/profile_ctx.store";
+import { GetUser } from "../../../../src/dto/user.dto";
 
 const OrganizationForm = () => {
 
-  //context
+  // Context
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
-  const profile_ctx = useAppSelector((state) => state.profile_ctx);
+  const profile_ctx = useAppSelector(state => state.profile_ctx);
+  // States
+  const [userList, setUserList] = useState<GetUser[]>([] as GetUser[]);
+  const [organizers, setOrganizers] = useState<GetUser[]>([ctx.user] as GetUser[]);
+  // Hook-Form
+  const { register, handleSubmit, setValue, getValues } = useForm<PersistOrganization>();
 
-  //states
-  const [userList, setUserList] = useState<UserDTO[]>([])
-  const [organizers, setOrganizers] = useState<UserDTO[]>([ctx.user] as UserDTO[]);
-
-  //form-hook
-  const { register, handleSubmit, setValue, getValues } = useForm<OrganizationDTO>();
+  /* Methods */
 
   async function handleSubmitForm() {
     if (ctx.user) {
       let user = ctx.user;
-      let organizer: OrganizerDTO = { user: { id: user.id }, role: RoleEnum.ADMIN };
-      let organizerList: OrganizerDTO[] = organizers.map((org) => {
+      let organizer: GetOrganizerWithOrganization = { user: { id: user.id }, role: RoleEnum.ADMIN };
+      let organizerList: GetOrganizerWithOrganization[] = organizers.map((org) => {
         if (org.id === user.id) return organizer;
         else return { role: RoleEnum.USER, user: { id: org.id } }
       });

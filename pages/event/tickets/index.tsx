@@ -5,38 +5,36 @@ import { parseCookies } from "nookies";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetEvents, asyncSetTickets } from "../../../src/store/organization_ctx.store";
 import { useForm } from "react-hook-form";
-import { TicketBatchDTO, TicketDTO } from "../../../src/dto/ticket.dto";
+import { GetTicketBatch, GetTicket, PersistTicket, PersistTicketBatch } from "../../../src/dto/ticket.dto";
 import { deleteTicketBatchById, deleteTicketById, persistTicket } from "../../../services/api.ticket";
 import { AxiosError } from "axios";
 import getMenu from "../../../components/default";
 
-const TicketComponent = () => {
+const TicketPage = () => {
 
-  // context
+  // Context  
   const organization_ctx = useAppSelector(state => state.organization_ctx);
   const dispatch = useAppDispatch();
-
-  // hook-form
-  const { register, getValues, handleSubmit, setValue } = useForm<TicketDTO>();
-  const { register: ticketBatchRegister, getValues: ticketBatchGetValues, handleSubmit: ticketBatchHandleSubmit } = useForm<TicketBatchDTO>();
-
-  // states
+  // Hook-Form
+  const { register, getValues, handleSubmit, setValue } = useForm<PersistTicket>();
+  const { register: ticketBatchRegister, getValues: ticketBatchGetValues, handleSubmit: ticketBatchHandleSubmit } = useForm<PersistTicketBatch>();
+  // States
   const [firstTicket, setFirstTicket] = useState<number>(0);
   const [ticketQuantity, setTicketQuantity] = useState<number>(0);
-  const [ticketBatchList, setTicketBatchList] = useState<TicketBatchDTO[]>([]);
+  const [ticketBatchList, setTicketBatchList] = useState<PersistTicketBatch[]>([]);
+
+  /* Methods */
 
   useEffect(() => {
     dispatch(asyncSetTickets(organization_ctx.selected_event.id!));
-  }, [])
+  }, [organization_ctx.selected_event.id])
 
   const handleSubmitTicketBatchForm = () => {
     setTicketBatchList([...ticketBatchList, ticketBatchGetValues()]);
   }
 
   const handleSubmitTicketForm = async () => {
-    setValue("event", organization_ctx.selected_event);
     setValue("batchs", ticketBatchList);
-
     await persistTicket(getValues()).then(res => {
       console.log("persistTicket", res);
       dispatch(asyncSetTickets(organization_ctx.selected_event.id!));
@@ -90,6 +88,7 @@ const TicketComponent = () => {
         <label htmlFor={"ticket_name"}>Name:</label>
         <input id={"ticket_name"} {...register("name")} /><br />
         <label>Event: {organization_ctx.selected_event.name}</label><br />
+        <input type={"hidden"} {...register("eventId")} value={organization_ctx.selected_event.id!} />
         <button type={"submit"}>Submit</button>
       </form>
       <h3>Ticket Batchs</h3>
@@ -114,7 +113,7 @@ const TicketComponent = () => {
   );
 }
 
-TicketComponent.getLayout = function getLayout(page: ReactElement) {
+TicketPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <LayoutComponent name={getMenu("Events")}>
       {page}
@@ -122,7 +121,7 @@ TicketComponent.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default TicketComponent;
+export default TicketPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'eventweb.token': token } = parseCookies(context);

@@ -1,16 +1,30 @@
-import { EventDTO } from './event.dto';
+import { GetEvent } from './event.dto';
 
-export interface TicketDTO {
+export interface GetTicket {
   id?: number,
   name?: string,
-  event?: EventDTO,
-  batchs?: TicketBatchDTO[]
+  event?: GetEvent,
+  batchs?: GetTicketBatch[]
 }
 
-export interface TicketBatchDTO {
+export interface GetTicketBatch {
   id?: number,
   name?: string,
   quantity?: number,
   price?: number,
   firstNumber?: number
+}
+
+export interface PersistTicket {
+  name: string,
+  eventId: number,
+  batchs?: PersistTicketBatch[]
+}
+
+export interface PersistTicketBatch {
+  name: string,
+  quantity: number,
+  price: number,
+  firstNumber: number,
+  ticketId?: number
 }

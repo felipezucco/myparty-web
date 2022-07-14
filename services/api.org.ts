@@ -1,22 +1,22 @@
-import { UserDTO } from './../contexts/AuthContext';
+import { PersistOrganization } from './../src/dto/organization.dto';
 import { AxiosResponse } from "axios";
-import { OrganizationDTO, OrganizerDTO } from "../src/dto/organization.dto";
+import { GetOrganization, GetOrganizationWithOrganizers, GetOrganizerWithOrganization } from "../src/dto/organization.dto";
 import api from "./api";
 
-const LOCAL_API = "/api/org";
+const ORGANIZATION_API = "/api/organization";
 
-export async function persistOrganization(data: OrganizationDTO): Promise<AxiosResponse<String[]>> {
-  return await api.post(LOCAL_API, data);
+export async function persistOrganization(data: PersistOrganization): Promise<AxiosResponse<String[]>> {
+  return await api.post(ORGANIZATION_API, data);
 }
 
-export async function getOrganizations(data: OrganizationDTO): Promise<AxiosResponse<String[]>> {
-  return await api.post(LOCAL_API, data);
+export async function getOrganizations(data: GetOrganization): Promise<AxiosResponse<String[]>> {
+  return await api.post(ORGANIZATION_API, data);
 }
 
-export async function getOrganizationById(payload: number): Promise<AxiosResponse<OrganizationDTO>> {
-  return await api.get(LOCAL_API + `/${payload}`);
+export async function getOrganizationById(payload: number): Promise<AxiosResponse<GetOrganizationWithOrganizers>> {
+  return await api.get(ORGANIZATION_API + `/${payload}`);
 }
 
-export async function getOrganizerByUser(data: UserDTO): Promise<AxiosResponse<OrganizerDTO[]>> {
-  return await api.post(LOCAL_API + "/organizer/user", data);
+export async function getOrganizerByUser(userId: number): Promise<AxiosResponse<GetOrganizerWithOrganization[]>> {
+  return await api.post(ORGANIZATION_API + `/user/${userId}`);
 }

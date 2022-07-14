@@ -1,29 +1,34 @@
-import { UserDTO } from "../../contexts/AuthContext"
+import { GetUser } from './user.dto';
 
-export interface OrganizationDTO {
-  id?: number,
-  name?: string,
-  organizers?: OrganizerWithoutOrganizationDTO[],
+
+export type GetOrganization = {
+  id: number,
+  name: string
 }
 
-export interface OrganizerDTO {
-  id?: number,
-  user?: UserDTO,
-  role?: number,
-  organization?: OrganizationDTO
+export type GetOrganizationWithOrganizers = GetOrganization & {
+  organizers: GetOrganizer[],
 }
 
-export interface OrganizerWithoutOrganizationDTO {
+export interface GetOrganizer {
   id?: number,
-  user?: UserDTO,
+  user?: GetUser,
   role?: number
 }
 
-export interface OrganizerView {
-  id?: number,
-  user?: number,
-  role?: number,
-  organization?: OrganizationDTO | null
+export type GetOrganizerWithOrganization = GetOrganizer & {
+  organization?: GetOrganizationWithOrganizers
+}
+
+export type PersistOrganization = {
+  name: string,
+  organizers: PersistOrganizer[]
+}
+
+export type PersistOrganizer = {
+  userId: number,
+  role: number,
+  organizationId?: number
 }
 
 export interface UserOrganizations {

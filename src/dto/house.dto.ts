@@ -1,9 +1,15 @@
-import { ZoneDTO } from './zone.dto';
-import { LocalDTO } from './local.dto';
+import { GetZone, PersistZone } from './zone.dto';
+import { GetLocal } from './local.dto';
 
-export interface HouseDTO {
+export interface GetHouse {
   id?: number,
   name?: string,
-  local?: LocalDTO,
-  zones?: ZoneDTO[]
+  local?: GetLocal,
+  zones?: GetZone[]
+}
+
+export interface PersistHouse {
+  name: string,
+  localId: number,
+  zones?: PersistZone[]
 }

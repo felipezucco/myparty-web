@@ -4,6 +4,8 @@
   width: 100%;
   grid-template-columns: 1fr 3fr 1fr;
   grid-column-gap: 30px;
+  height: 100%;
+  grid-template-rows: 100%;
   grid-template-areas:
     "left main right";
 }

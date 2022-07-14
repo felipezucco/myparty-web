@@ -7,7 +7,7 @@ import OrganizationForm from "../Content/Form/Organization";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
 import { setStatus, asyncOrganizations } from "../../src/store/profile_ctx.store";
 import { asyncSetOrganization } from "../../src/store/organization_ctx.store";
-import { OrganizationDTO, OrganizerDTO } from "../../src/dto/organization.dto";
+import { GetOrganization, GetOrganizerWithOrganization } from "../../src/dto/organization.dto";
 
 const Organization = () => {
 
@@ -18,10 +18,10 @@ const Organization = () => {
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
 
   // state
-  const [organizations, setOrganizations] = useState<OrganizerDTO[]>([] as OrganizerDTO[]);
+  const [organizations, setOrganizations] = useState<GetOrganizerWithOrganization[]>([] as GetOrganizerWithOrganization[]);
 
   useEffect(() => {
-    dispatch(asyncOrganizations(ctx.user));
+    dispatch(asyncOrganizations(ctx.user.id!));
   }, [])
 
   useEffect(() => {
@@ -67,30 +67,6 @@ const Organization = () => {
       </ul>
     )
   }
-  // const OrganizationListComponent = () => {
-
-  //   const isSelectedOrganization = (id: number) => organization_ctx.selected_organization.id === id;
-  //   const getSelectedOrganizationClass = (id: number) => isSelectedOrganization(id) ? "organization-selected" : "organization";
-
-  //   return (
-  //     <ul className={style["organization-list-component"]}>
-  //       {profile_ctx.organizations.map(userOrganization => {
-  //         return (
-  //           <li key={userOrganization.organization?.id}
-  //             className={style[getSelectedOrganizationClass(userOrganization.organization?.id!)]}
-  //             onClick={() => dispatch(asyncSetOrganization(userOrganization.organization?.id!))}>
-  //             <div className={style["info-content"]}>
-  //               <span className={style["info-content-name"]}>{userOrganization.organization?.name}</span>
-  //               <span className={style["info-content-qualifier"]}>{getOrganizerRule(userOrganization.role!)}</span>
-  //               <span className={style["info-content-information"]}>{userOrganization.organization?.organizers?.length} organizers </span>
-  //             </div>
-  //             <img className={style["img"]} src={"/cute-monkey-sitting-banana_138676-3305.webp"} width={50} height={50} />
-  //           </li>
-  //         )
-  //       })}
-  //     </ul>
-  //   )
-  // }
 
   return (
     <div className={style["organization-section"]}>

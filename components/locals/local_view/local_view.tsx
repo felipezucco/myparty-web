@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { LocalDTO } from "../../../src/dto/local.dto";
+import { GetLocal } from "../../../src/dto/local.dto";
 import styled from "./local_view.module.scss";
 
 interface Props {
-  local: LocalDTO
+  local: GetLocal
 }
 
 const LocalView: FC<Props> = ({ local }) => {

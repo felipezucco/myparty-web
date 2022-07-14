@@ -4,25 +4,19 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import Router from "next/router";
 import { AxiosError, AxiosResponse } from "axios";
 import api from "../services/api";
+import { GetUser } from "../src/dto/user.dto";
 
 export type AuthContextType = {
   isAuthenticated: boolean,
   signIn: (login: SignInRequestType) => Promise<AxiosResponse<any, any>>,
   signOut: () => void,
-  user: UserDTO,
+  user: GetUser,
   token: string
 }
 
 export type AuthResponseType = {
-  user: UserDTO,
+  user: GetUser,
   token: string
-}
-
-export type UserDTO = {
-  username?: string,
-  name?: string,
-  email?: string,
-  id?: number
 }
 
 const DEFAULT_AUTH_RESPONSE: AuthResponseType = {
@@ -51,7 +45,7 @@ export const AuthContext = createContext(DEFAULT_CONTEXT);
 
 export const AuthProvider = ({ children }: any) => {
 
-  const [user, setUser] = useState<UserDTO>(DEFAULT_AUTH_RESPONSE.user);
+  const [user, setUser] = useState<GetUser>(DEFAULT_AUTH_RESPONSE.user);
   const [token, setToken] = useState<string>("");
   const isAuthenticated = !!user;
 

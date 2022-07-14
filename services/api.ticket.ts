@@ -1,14 +1,14 @@
 import { AxiosResponse } from 'axios';
-import { TicketDTO } from './../src/dto/ticket.dto';
+import { GetTicket } from './../src/dto/ticket.dto';
 import api from './api';
 
 const ENDPOINT = "/api/ticket";
 
-export const persistTicket = async (ticket: TicketDTO) => {
+export const persistTicket = async (ticket: GetTicket) => {
   return await api.post(ENDPOINT, ticket);
 }
 
-export const getTicketsByEventId = async (eventId: number): Promise<AxiosResponse<TicketDTO[]>> => {
+export const getTicketsByEventId = async (eventId: number): Promise<AxiosResponse<GetTicket[]>> => {
   return await api.get(ENDPOINT + `/${eventId}`);
 }
 

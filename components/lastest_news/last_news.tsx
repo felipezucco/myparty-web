@@ -31,6 +31,7 @@ const LastNews = () => {
 
   useEffect(() => {
     getNotificationsByUserId(ctx.user.id!).then(res => {
+      console.log(res.data)
       dispatch(setNotificationList(res.data))
     });
 
@@ -59,7 +60,7 @@ const LastNews = () => {
   const HeaderComponent = () => {
     return (
       <div className={style["card-header-component"]}>
-        <span className={style["title"]}>Last News</span>
+        <span className={style["title"]}>Notifications</span>
       </div>
     )
   }
@@ -70,7 +71,7 @@ const LastNews = () => {
       return (
         <ul className={style["last-news-component"]}>
           {profile_ctx.notifications.map((notification) => {
-            return <LastestNewsRow data={notification} />
+            return <LastestNewsRow notification={notification} />
           })}
         </ul>
       )

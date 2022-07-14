@@ -12,13 +12,13 @@ import { HouseType } from "../../../../../models/LocalType";
 import { format } from "date-fns";
 import { persistEvent } from "../../../../../services/api.event";
 import { AxiosError } from "axios";
-import { EventDTO } from "../../../../../src/dto/event.dto";
+import { GetEvent } from "../../../../../src/dto/event.dto";
 
 interface Props extends DialogInterface { }
 
 const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
 
-  const { register, handleSubmit, setValue, getValues } = useForm<EventDTO>();
+  const { register, handleSubmit, setValue, getValues } = useForm<GetEvent>();
   const [dateValue, setDateValue] = useState<Date | null>(null);
   const [houses, setHouses] = useState<HouseType[]>([] as HouseType[])
   const [sending, setSending] = useState(false);

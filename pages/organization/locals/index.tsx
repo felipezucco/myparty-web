@@ -5,14 +5,14 @@ import getMenu from "../../../components/default";
 import LayoutComponent from "../../../components/layout/layout";
 import LocalView from "../../../components/locals/local_view/local_view";
 import { persistLocal } from "../../../services/api.local";
-import { LocalDTO } from "../../../src/dto/local.dto";
+import { GetLocal } from "../../../src/dto/local.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import styled from "./locals_page.module.scss";
 import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
 
 const Locals = () => {
 
-  //context
+  // Context
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
   const dispatch = useAppDispatch();
 
