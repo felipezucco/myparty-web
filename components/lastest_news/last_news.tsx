@@ -12,14 +12,14 @@ import { setNotification, setNotificationList } from "../../src/store/profile_ct
 import { getNotificationsByUserId } from "../../services/api.notification";
 import LastestNewsRow from "./component/lastest_news_row";
 
-export interface NotificationType {
-  id?: number,
-  message?: string,
-  organization?: string,
-  date?: string,
-  visualized?: boolean,
-  user?: string,
-  attributes?: []
+export interface GetNotification {
+  id: number,
+  message: string,
+  organization: string,
+  date: string,
+  visualized: boolean,
+  user: string,
+  attributes: []
 }
 
 const LastNews = () => {
@@ -53,7 +53,7 @@ const LastNews = () => {
   }, []);
 
   const getNotificationSent = (e: MessageEvent) => {
-    let data: NotificationType = JSON.parse(e.data);
+    let data: GetNotification = JSON.parse(e.data);
     dispatch(setNotification(data));
   }
 

@@ -1,28 +1,45 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, ReactNode } from "react";
+import { MenuTreeType } from "../../default";
 import style from "./menu_item.module.scss";
 
-interface MenuItemInterface {
-  name: string,
-  href: string
-  icon?: ReactNode
+interface Props {
+  menu: MenuTreeType
 }
 
-const MenuItem: FC<MenuItemInterface> = ({ name, href, icon }) => {
+const MenuItem: FC<Props> = ({ menu }) => {
   const router = useRouter();
-  const selectMenuItem = () => `menu-item-component${router.pathname === href ? '-selected' : ''}`
-  // const selectMenuItem = () => `menu-item-component`;
+
+  const disabled = () => menu.disable ? "disabled" : "";
+  const selectMenuItem = () => router.pathname === menu.link ? "-selected" : "";
+  const getStyle = () => style["menu-item-component" + selectMenuItem()] + " " + style[disabled()];
+
+  const HandledLink: FC = ({ children }) => {
+    if (!menu.disable) {
+      return (
+        <Link href={menu.link!}>
+          {children}
+        </Link>
+      )
+    } else {
+      return (
+        <>
+          {children}
+        </>
+      )
+    }
+  }
 
   return (
-    <Link href={href}>
-      <li className={style[selectMenuItem()]}>
-        {icon}
+    <HandledLink>
+      <li className={getStyle()}>
+        {menu.icon}
         <span>
-          {name}
+          {menu.name}
         </span>
       </li>
-    </Link>
+    </HandledLink>
   )
 }
 export default MenuItem;

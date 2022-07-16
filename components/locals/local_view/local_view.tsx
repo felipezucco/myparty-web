@@ -9,7 +9,7 @@ interface Props {
 const LocalView: FC<Props> = ({ local }) => {
 
   return (
-    <li className={styled["local-view-component"]} key={local.id}>
+    <li className={styled["local-view-component"]} >
       <div>{local.aisle}</div>
       <div>{local.block}</div>
       <div>{local.city}</div>

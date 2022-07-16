@@ -1,7 +1,7 @@
 export interface GetZone {
-  id?: number,
-  name?: string,
-  size?: number
+  id: number,
+  name: string,
+  size: number
 }
 
 export interface PersistZone {

@@ -34,4 +34,15 @@
     display: flex;
     align-items: center;
   }
+
+}
+
+.disabled {
+  cursor: auto;
+  color: rgb(201, 201, 201);
+
+  &:hover {
+    color: rgb(201, 201, 201);
+    background-color: white;
+  }
 }

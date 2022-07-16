@@ -8,9 +8,6 @@ import styles from '../../components/Auth.module.css'
 import { Button } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Router from 'next/router';
-import client, { Connection, Channel, ConsumeMessage } from "amqplib";
-import useWebSocket, { ReadyState } from "react-use-websocket";
-import Stomp from "stompjs";
 
 export type SignInRequestType = {
   username: string,

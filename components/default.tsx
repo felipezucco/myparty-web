@@ -12,24 +12,30 @@ export interface MenuTreeType {
   name: string,
   link: string,
   icon: ReactNode
-  sub_menus?: MenuTreeType[]
+  sub_menus?: MenuTreeType[],
+  visible: boolean,
+  disable: boolean
 }
 
 export const ORGANIZATION_MENU: MenuTreeType[] = [
-  { name: "Dashboard", link: "/organization/dashboard", icon: <DashboardIcon /> },
-  { name: "Events", link: "/organization/events", icon: <DateRangeIcon /> },
-  { name: "Financial", link: "/organization/financial", icon: <AttachMoneyIcon /> },
-  { name: "Houses", link: "/organization/houses", icon: <HouseIcon /> },
+  { name: "Dashboard", link: "/organization/dashboard", icon: <DashboardIcon />, visible: true, disable: true },
+  { name: "Events", link: "/organization/events", icon: <DateRangeIcon />, visible: true, disable: false },
+  { name: "Financial", link: "/organization/financial", icon: <AttachMoneyIcon />, visible: true, disable: true },
+  {
+    name: "Houses", link: "/organization/houses", icon: <HouseIcon />, visible: true, sub_menus: [
+      { name: "New House", link: "/organization/houses/new", icon: <AddIcon />, visible: true, disable: false }
+    ], disable: false
+  },
   {
     name: "Locals", link: "/organization/locals", icon: <MapIcon />, sub_menus: [
-      { name: "New", link: "/organization/locals/new", icon: <AddIcon /> },
-      { name: "Edit", link: "/organization/locals/new", icon: <EditIcon /> },
-    ]
+      { name: "New", link: "/organization/locals/new", icon: <AddIcon />, visible: true, disable: false },
+      { name: "Edit", link: "/organization/locals/new", icon: <EditIcon />, visible: true, disable: true },
+    ], visible: false, disable: false
   },
 ]
 
 export const EVENT_MENU: MenuTreeType[] = [
-  { name: "Production", link: "/event/production", icon: <MusicNoteIcon /> }
+  { name: "Production", link: "/event/production", icon: <MusicNoteIcon />, visible: true, disable: false }
 ]
 
 export enum MenuEnum {

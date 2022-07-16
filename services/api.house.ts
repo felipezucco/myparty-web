@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
-import { GetHouse } from './../src/dto/house.dto';
+import { GetHouse, PersistHouse } from './../src/dto/house.dto';
 import qs from "qs";
 import { HouseType } from "../models/LocalType";
 import api from "./api";
 
 const HOUSE_API = "/api/house";
 
-export async function persistHouse(house: GetHouse) {
+export async function persistHouse(house: PersistHouse) {
   return await api.post(HOUSE_API, house);
 }
 

@@ -11,14 +11,15 @@ import { GetOrganization, GetOrganizerWithOrganization } from "../../src/dto/org
 
 const Organization = () => {
 
-  // context
+  // Context
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
   const profile_ctx = useAppSelector((state) => state.profile_ctx);
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
-
-  // state
+  // State
   const [organizations, setOrganizations] = useState<GetOrganizerWithOrganization[]>([] as GetOrganizerWithOrganization[]);
+
+  /* Methods */
 
   useEffect(() => {
     dispatch(asyncOrganizations(ctx.user.id!));

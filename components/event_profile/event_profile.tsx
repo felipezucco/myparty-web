@@ -14,6 +14,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ArticleIcon from '@mui/icons-material/Article';
 import ImageIcon from '@mui/icons-material/Image';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import { MenuTreeType } from "../default";
 
 const EventProfile = () => {
 
@@ -21,15 +22,15 @@ const EventProfile = () => {
   const organization_ctx = useAppSelector((state) => state.organization_ctx);
   const dispatch = useAppDispatch();
 
-  const data = [
-    { id: 1, name: "Dashboard", link: "/event/dashboard", icon: <DashboardIcon /> },
-    { id: 2, name: "Actions", link: "/event/actions", icon: <PlayCircleOutlineIcon /> },
-    { id: 3, name: "Tickets", link: "/event/tickets", icon: <ConfirmationNumberIcon /> },
-    { id: 4, name: "Financial", link: "/event/financial", icon: <AttachMoneyIcon /> },
-    { id: 5, name: "Promotions", link: "/event/promotions", icon: <LocalFireDepartmentIcon /> },
-    { id: 6, name: "Documents", link: "/event/documents", icon: <ArticleIcon /> },
-    { id: 7, name: "Visual", link: "/event/visual", icon: <ImageIcon /> },
-    { id: 8, name: "Production", link: "/event/production", icon: <MusicNoteIcon /> },
+  const data: MenuTreeType[] = [
+    { name: "Dashboard", link: "/event/dashboard", icon: <DashboardIcon />, disable: true, visible: true },
+    { name: "Actions", link: "/event/actions", icon: <PlayCircleOutlineIcon />, disable: true, visible: true },
+    { name: "Tickets", link: "/event/tickets", icon: <ConfirmationNumberIcon />, disable: false, visible: true },
+    { name: "Financial", link: "/event/financial", icon: <AttachMoneyIcon />, disable: true, visible: true },
+    { name: "Promotions", link: "/event/promotions", icon: <LocalFireDepartmentIcon />, disable: true, visible: true },
+    { name: "Documents", link: "/event/documents", icon: <ArticleIcon />, disable: true, visible: true },
+    { name: "Visual", link: "/event/visual", icon: <ImageIcon />, disable: true, visible: true },
+    { name: "Production", link: "/event/production", icon: <MusicNoteIcon />, disable: false, visible: true },
   ]
 
   useEffect(() => {
@@ -54,8 +55,8 @@ const EventProfile = () => {
   const MenuItens = () => {
     return (
       <Menu>
-        {data.map(d => {
-          return <MenuItem name={d.name} key={d.id} href={d.link} icon={d.icon!} />
+        {data.map((d, idx) => {
+          return <MenuItem menu={d} key={idx} />
         })}
       </Menu>
     )

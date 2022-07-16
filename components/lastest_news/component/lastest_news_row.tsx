@@ -2,11 +2,11 @@ import { FC, useState } from "react";
 import { setNotificationSeen } from "../../../services/api.notification";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { setNotification, updateNotification } from "../../../src/store/profile_ctx.store";
-import { NotificationType } from "../last_news";
+import { GetNotification } from "../last_news";
 import style from "./lastest_news_row.module.scss";
 
 interface Props {
-  notification: NotificationType
+  notification: GetNotification
 }
 
 const LastestNewsRow: FC<Props> = ({ notification }) => {

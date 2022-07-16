@@ -1,0 +1,29 @@
+@import "../../styles/theme.module";
+
+.row {
+  padding: 5px;
+  border: 1px solid $primary-color;
+  border-radius: 2px;
+  display: flex;
+
+  .content {
+    flex-grow: 1;
+  }
+
+  .actions {
+    align-items: center;
+    flex-grow: 0;
+
+    &-hide {
+      display: none;
+    }
+
+    &-show {
+      display: flex;
+      align-items: center;
+    }
+
+
+  }
+
+}

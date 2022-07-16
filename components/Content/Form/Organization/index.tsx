@@ -5,14 +5,11 @@ import { Autocomplete, Chip, Dialog, DialogActions, IconButton } from "@mui/mate
 import { FC, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
-import { DialogInterface } from "../../../../src/interface/DialogInterface";
-import { GetOrganization, GetOrganizerWithOrganization, PersistOrganization } from "../../../../src/dto/organization.dto";
+import { GetOrganizer, GetOrganizerWithOrganization, PersistOrganization, PersistOrganizer } from "../../../../src/dto/organization.dto";
 import { AuthContext } from "../../../../contexts/AuthContext";
 import { getUserByEmail } from "../../../../services/api.user";
 import { persistOrganization } from "../../../../services/api.org";
 import { RoleEnum } from "../../../../src/enum/RoleEnum";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../src/store/store";
 import { useAppDispatch, useAppSelector } from "../../../../src/store/hooks";
 import { asyncOrganizations, setStatus } from "../../../../src/store/profile_ctx.store";
 import { GetUser } from "../../../../src/dto/user.dto";
@@ -34,10 +31,10 @@ const OrganizationForm = () => {
   async function handleSubmitForm() {
     if (ctx.user) {
       let user = ctx.user;
-      let organizer: GetOrganizerWithOrganization = { user: { id: user.id }, role: RoleEnum.ADMIN };
-      let organizerList: GetOrganizerWithOrganization[] = organizers.map((org) => {
+      let organizer: PersistOrganizer = { userId: user.id!, role: RoleEnum.ADMIN };
+      let organizerList: PersistOrganizer[] = organizers.map(org => {
         if (org.id === user.id) return organizer;
-        else return { role: RoleEnum.USER, user: { id: org.id } }
+        else return { role: RoleEnum.USER, userId: org.id! }
       });
       setValue('organizers', organizerList);
 
@@ -45,7 +42,7 @@ const OrganizationForm = () => {
 
       persistOrganization(getValues()).then(res => {
         dispatch(setStatus(false));
-        dispatch(asyncOrganizations(user));
+        dispatch(asyncOrganizations(user.id!));
       }).catch((err: AxiosError) => console.error(err));
     }
   }
