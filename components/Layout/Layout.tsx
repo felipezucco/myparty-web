@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react";
+import { FC } from "react";
 import Left from "./left/left";
 import Main from "./main/main";
 import Right from "./right/right";
@@ -9,7 +9,7 @@ interface LayoutComponentProps {
   name: MenuTreeType
 }
 
-const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({ children, name }) => {
+const LayoutComponent: FC<LayoutComponentProps> = ({ children, name }) => {
   return (
     <section className={style[`layout-template`]}>
       <Left />
