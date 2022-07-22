@@ -18,6 +18,7 @@ const ActionPage = () => {
 
   useEffect(() => {
     loadResources();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controller.selected_event.id])
 
   const loadResources = () => {
