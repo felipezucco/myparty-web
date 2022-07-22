@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { setNotificationSeen } from "../../../services/api.notification";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
-import { setNotification, updateNotification } from "../../../src/store/profile_ctx.store";
+import { setNotification, updateNotification } from "../../../src/store/user.store";
 import { GetNotification } from "../last_news";
 import style from "./lastest_news_row.module.scss";
 
@@ -11,14 +11,14 @@ interface Props {
 
 const LastestNewsRow: FC<Props> = ({ notification }) => {
 
-  // context
-  const profile_ctx = useAppSelector(status => status.profile_ctx);
+  // Context
+  const user = useAppSelector(status => status.user);
   const dispatch = useAppDispatch();
 
-  // style
-  const getStyle = () => {
-    return notification?.visualized ? "row" : "row-not-viewed"
-  };
+  /* Methods */
+
+  // Style
+  const getStyle = () => notification?.visualized ? "row" : "row-not-viewed";
 
   const messageFormater = () => {
     let result: string = notification.message!;

@@ -49,6 +49,9 @@ export const AuthProvider = ({ children }: any) => {
   const [token, setToken] = useState<string>("");
   const isAuthenticated = !!user;
 
+  console.log("NODE_ENV", process.env.NODE_ENV)
+  console.log("NEXT_PUBLIC_MYPARTY_API", process.env.NEXT_PUBLIC_MYPARTY_API)
+
   useEffect(() => {
     const { 'eventweb.token': token } = parseCookies();
     if (!!token) {

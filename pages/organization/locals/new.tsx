@@ -6,12 +6,12 @@ import LayoutComponent from "../../../components/layout/layout";
 import { persistLocal } from "../../../services/api.local";
 import { PersistLocal } from "../../../src/dto/local.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
-import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
+import { asyncSetLocals } from "../../../src/store/organization.store";
 
 const NewLocalPage = () => {
 
   // Context
-  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  const controller = useAppSelector((state) => state.controller);
   const dispatch = useAppDispatch();
   // Hook-Form
   const { register, handleSubmit, getValues } = useForm<PersistLocal>();
@@ -19,7 +19,7 @@ const NewLocalPage = () => {
   /* Methods */
 
   useEffect(() => {
-    dispatch(asyncSetLocals(organization_ctx.selected_organization.id!));
+    dispatch(asyncSetLocals(controller.selected_organization.id!));
   }, [])
 
   const handleSubmitForm = async () => {
@@ -48,7 +48,7 @@ const NewLocalPage = () => {
         <input type={"number"} {...register("number")} /><br />
         <label htmlFor="number">State</label>
         <input type={"text"} {...register("state")} maxLength={2} required /><br />
-        <input type={"hidden"} {...register("organizationId")} value={organization_ctx.selected_organization.id!} />
+        <input type={"hidden"} {...register("organizationId")} value={controller.selected_organization.id!} />
         <button type={"submit"}>Create</button>
       </form>
     </>

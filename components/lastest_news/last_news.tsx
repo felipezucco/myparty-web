@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
 import { AuthContext } from "../../contexts/AuthContext";
 import { EventSourcePolyfill, MessageEvent } from 'event-source-polyfill';
 import api from "../../services/api";
-import { setNotification, setNotificationList } from "../../src/store/profile_ctx.store";
+import { setNotification, setNotificationList } from "../../src/store/user.store";
 import { getNotificationsByUserId } from "../../services/api.notification";
 import LastestNewsRow from "./component/lastest_news_row";
 
@@ -24,10 +24,12 @@ export interface GetNotification {
 
 const LastNews = () => {
 
-  //state
-  const profile_ctx = useAppSelector((state) => state.profile_ctx);
+  // Context
+  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const ctx = useContext(AuthContext);
+
+  /* Methods */
 
   useEffect(() => {
     getNotificationsByUserId(ctx.user.id!).then(res => {
@@ -35,7 +37,7 @@ const LastNews = () => {
       dispatch(setNotificationList(res.data))
     });
 
-    const sse = new EventSourcePolyfill(`http://localhost:8080/api/notification/sse/${ctx.user.username}`, {
+    const sse = new EventSourcePolyfill(`${process.env.NEXT_PUBLIC_MYPARTY_API}/api/notification/sse/${ctx.user.username}`, {
       headers: {
         'Authorization': `Bearer ${ctx.token}`
       },
@@ -70,7 +72,7 @@ const LastNews = () => {
     const Messages = () => {
       return (
         <ul className={style["last-news-component"]}>
-          {profile_ctx.notifications.map((notification) => {
+          {user.notifications.map((notification) => {
             return <LastestNewsRow notification={notification} />
           })}
         </ul>

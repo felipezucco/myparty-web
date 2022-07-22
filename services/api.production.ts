@@ -8,6 +8,10 @@ export const persistProduction = async (production: PersistProduction): Promise<
   return await api.post(ENDPOINT, production);
 }
 
+export const removeProduction = async (id: number): Promise<AxiosResponse<Boolean>> => {
+  return await api.delete(ENDPOINT + `/${id}`);
+}
+
 export const getProductionByEventId = async (eventId: number): Promise<AxiosResponse<GetProduction[]>> => {
   return await api.get(ENDPOINT + `/event/${eventId}`);
 }

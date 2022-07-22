@@ -4,8 +4,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 const OrganizationMembers = () => {
 
-  // context
-  const global = useAppSelector((state) => state.organization_ctx);
+  // Context
+  const controller = useAppSelector((state) => state.controller);
+
+  /* Methods */
 
   const OrganizationMembersList = () => {
     return (
@@ -17,7 +19,7 @@ const OrganizationMembers = () => {
           </span>
         </div>
         <ul className={style["list"]}>
-          {global.selected_organization.organizers?.map(organizer => {
+          {controller.selected_organization.organizers?.map(organizer => {
             return (
               <li key={organizer.id}>
                 <span className={style["avatar"]} >

@@ -21,8 +21,21 @@
     &-show {
       display: flex;
       align-items: center;
-    }
+      column-gap: 5px;
 
+      span {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: rgb(218, 218, 218);
+        }
+      }
+    }
 
   }
 

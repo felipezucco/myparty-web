@@ -21,7 +21,7 @@ export async function getHouseById(ids: number[]) {
   });
 }
 
-export async function deleteHouse(id: number) {
+export async function removeHouse(id: number) {
   return await api.delete(HOUSE_API + `/${id}`);
 }
 

@@ -7,14 +7,14 @@ import { persistHouse } from "../../../services/api.house";
 import { PersistHouse } from "../../../src/dto/house.dto";
 import { PersistZone } from "../../../src/dto/zone.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
-import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization_ctx.store";
+import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization.store";
 import Router from "next/router";
 
 
 const NewHousePage = () => {
 
   // Contexts
-  const organization_ctx = useAppSelector(state => state.organization_ctx);
+  const controller = useAppSelector(state => state.controller);
   const dispatch = useAppDispatch();
   // States
   const [zoneList, setZoneList] = useState<PersistZone[]>([]);
@@ -25,16 +25,16 @@ const NewHousePage = () => {
   /* Methods */
 
   useEffect(() => {
-    dispatch(asyncSetLocals(organization_ctx.selected_organization.id!));
-    dispatch(asyncSetHouses(organization_ctx.selected_organization.id!));
-  }, [organization_ctx.selected_organization])
+    dispatch(asyncSetLocals(controller.selected_organization.id!));
+    dispatch(asyncSetHouses(controller.selected_organization.id!));
+  }, [controller.selected_organization])
 
   const handleHouseSubmitForm = async () => {
     setServerSideValues();
     console.log(getValues())
     await persistHouse(getValues()).then(res => {
       alert("House created successfully");
-      dispatch(asyncSetHouses(organization_ctx.selected_organization.id!));
+      dispatch(asyncSetHouses(controller.selected_organization.id!));
       Router.push("/organization/houses");
     }).catch((err: AxiosError) => {
       alert("Failed to create house. See log for more.");
@@ -44,7 +44,7 @@ const NewHousePage = () => {
 
   const setServerSideValues = () => {
     setValue("zones", zoneList);
-    setValue("local.organizationId", organization_ctx.selected_organization.id);
+    setValue("local.organizationId", controller.selected_organization.id);
   }
 
   const LocalFormComponent = () => {

@@ -7,7 +7,8 @@ export const getAPIClient = (ctx?: any) => {
   const { 'eventweb.token': token } = parseCookies(ctx);
 
   const api = axios.create({
-    baseURL: "http://localhost:8080/"
+    baseURL: `${process.env.NEXT_PUBLIC_MYPARTY_API}`
+    // baseURL: "https://myparty-api.herokuapp.com/"
   });
 
   api.interceptors.response.use((response) => response, (error: AxiosError) => {

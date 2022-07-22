@@ -11,13 +11,13 @@ export type GetOrganizationWithOrganizers = GetOrganization & {
 }
 
 export interface GetOrganizer {
-  id?: number,
-  user?: GetUser,
-  role?: number
+  id: number,
+  user: GetUser,
+  role: number
 }
 
 export type GetOrganizerWithOrganization = GetOrganizer & {
-  organization?: GetOrganizationWithOrganizers
+  organization: GetOrganizationWithOrganizers
 }
 
 export type PersistOrganization = {

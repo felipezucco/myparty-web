@@ -10,8 +10,8 @@ interface Props {
   notifications: GetNotification[]
 }
 
-const profile_ctx = createSlice({
-  name: "profile_ctx",
+const user = createSlice({
+  name: "user",
   initialState: {
     show: false,
     organizations: [] as GetOrganizerWithOrganization[],
@@ -35,15 +35,11 @@ const profile_ctx = createSlice({
     updateNotification(state: Props, action: PayloadAction<GetNotification>) {
       state.notifications = state.notifications.map(n => n.id === action.payload.id ? action.payload : n);
     }
-  },
-  extraReducers: {
-    'organization_ctx/selected_organization': () => console.log('toop')
-
-  },
+  }
 });
 
-export const { setStatus, setOrganizations, setNotification, setNotificationList, updateNotification } = profile_ctx.actions;
-export default profile_ctx.reducer;
+export const { setStatus, setOrganizations, setNotification, setNotificationList, updateNotification } = user.actions;
+export default user.reducer;
 
 export function asyncOrganizations(userId: number): AppThunk {
   return async function (dispatch) {

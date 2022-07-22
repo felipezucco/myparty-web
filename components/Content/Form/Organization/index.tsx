@@ -11,7 +11,7 @@ import { getUserByEmail } from "../../../../services/api.user";
 import { persistOrganization } from "../../../../services/api.org";
 import { RoleEnum } from "../../../../src/enum/RoleEnum";
 import { useAppDispatch, useAppSelector } from "../../../../src/store/hooks";
-import { asyncOrganizations, setStatus } from "../../../../src/store/profile_ctx.store";
+import { asyncOrganizations, setStatus } from "../../../../src/store/user.store";
 import { GetUser } from "../../../../src/dto/user.dto";
 
 const OrganizationForm = () => {
@@ -19,7 +19,7 @@ const OrganizationForm = () => {
   // Context
   const ctx = useContext(AuthContext);
   const dispatch = useAppDispatch();
-  const profile_ctx = useAppSelector(state => state.profile_ctx);
+  const user = useAppSelector(state => state.user);
   // States
   const [userList, setUserList] = useState<GetUser[]>([] as GetUser[]);
   const [organizers, setOrganizers] = useState<GetUser[]>([ctx.user] as GetUser[]);
@@ -54,7 +54,7 @@ const OrganizationForm = () => {
   }
 
   return (
-    <Dialog open={profile_ctx.show}>
+    <Dialog open={user.show}>
       <form onSubmit={handleSubmit(handleSubmitForm)} method={'POST'}>
         <DialogTitle>
           Criar Organização

@@ -2,8 +2,13 @@ import { setHours } from "date-fns";
 import { FC, useState } from "react";
 import style from "./row.module.scss";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Row: FC = ({ children }) => {
+interface Props {
+  handleRemove: () => void
+}
+
+const RowComponent: FC<Props> = ({ children, handleRemove }) => {
 
   // State
   const [hover, setHover] = useState(false);
@@ -16,10 +21,11 @@ const Row: FC = ({ children }) => {
         {children}
       </div>
       <div className={style[getActionsStyle()]}>
-        <MoreHorizIcon />
+        <span><MoreHorizIcon /></span>
+        <span onClick={() => handleRemove()}><DeleteIcon /></span>
       </div>
     </li>
   )
 
 }
-export default Row;
+export default RowComponent;

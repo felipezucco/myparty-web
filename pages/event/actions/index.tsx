@@ -1,28 +1,43 @@
 import { GetServerSideProps } from "next";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import LayoutComponent from "../../../components/layout/layout";
 import { parseCookies } from 'nookies'
-import getMenu from "../../../components/default";
+import getMenu, { MenuEnum } from "../../../components/default";
+import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
+import ActionView from "../../../components/action/action_view/action_view";
+import { asyncSetActions } from "../../../src/store/event.store";
 
-const Actions = () => {
+const ActionPage = () => {
+
+  // Context
+  const controller = useAppSelector(state => state.controller);
+  const event = useAppSelector(state => state.event);
+  const dispatch = useAppDispatch();
+
+  /* Methods */
+
+  useEffect(() => {
+    loadResources();
+  }, [controller.selected_event.id])
+
+  const loadResources = () => {
+    dispatch(asyncSetActions(controller.selected_event.id));
+  }
 
   return (
-    <div>
-      Actions
-    </div>
-    // <LayoutDashboard />
+    <ActionView actions={event.actions} />
   );
 }
 
-Actions.getLayout = function getLayout(page: ReactElement) {
+ActionPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LayoutComponent name={getMenu("Events")}>
+    <LayoutComponent name={getMenu("Actions", MenuEnum.EVENT_MENU)}>
       {page}
     </LayoutComponent>
   )
 }
 
-export default Actions;
+export default ActionPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'eventweb.token': token } = parseCookies(context);

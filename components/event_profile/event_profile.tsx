@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import { asyncSelectEvent, asyncSetEvents } from "../../src/store/organization_ctx.store";
 import Card from "../card/card";
 import MenuItem from "../menu/item/menu_item";
 import Menu from "../menu/menu";
@@ -14,36 +13,30 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ArticleIcon from '@mui/icons-material/Article';
 import ImageIcon from '@mui/icons-material/Image';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import { MenuTreeType } from "../default";
+import { EVENT_MENU, MenuTreeType } from "../default";
+import { asyncSelectEvent } from "../../src/store/controller.store";
+import { asyncSetEvents } from "../../src/store/organization.store";
 
 const EventProfile = () => {
 
-  //context
-  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  // Context
+  const controller = useAppSelector((state) => state.controller);
+  const organization = useAppSelector((state) => state.organization);
   const dispatch = useAppDispatch();
 
-  const data: MenuTreeType[] = [
-    { name: "Dashboard", link: "/event/dashboard", icon: <DashboardIcon />, disable: true, visible: true },
-    { name: "Actions", link: "/event/actions", icon: <PlayCircleOutlineIcon />, disable: true, visible: true },
-    { name: "Tickets", link: "/event/tickets", icon: <ConfirmationNumberIcon />, disable: false, visible: true },
-    { name: "Financial", link: "/event/financial", icon: <AttachMoneyIcon />, disable: true, visible: true },
-    { name: "Promotions", link: "/event/promotions", icon: <LocalFireDepartmentIcon />, disable: true, visible: true },
-    { name: "Documents", link: "/event/documents", icon: <ArticleIcon />, disable: true, visible: true },
-    { name: "Visual", link: "/event/visual", icon: <ImageIcon />, disable: true, visible: true },
-    { name: "Production", link: "/event/production", icon: <MusicNoteIcon />, disable: false, visible: true },
-  ]
+  /* Methods */
 
   useEffect(() => {
-    if (organization_ctx.selected_organization.id) {
-      dispatch(asyncSetEvents(organization_ctx.selected_organization.id))
+    if (controller.selected_organization.id) {
+      dispatch(asyncSetEvents(controller.selected_organization.id))
     }
-  }, [organization_ctx.selected_organization.id])
+  }, [controller.selected_organization.id])
 
   const SelectedEvent = () => {
     return (
       <select onChange={(e) => dispatch(asyncSelectEvent(Number.parseInt(e.currentTarget.value)))}
-        value={organization_ctx.selected_event?.id}>
-        {organization_ctx.events.map(event => {
+        value={controller.selected_event.id}>
+        {organization.events.map(event => {
           return (
             <option key={event.id} value={event.id}>{event.name}</option>
           )
@@ -55,7 +48,7 @@ const EventProfile = () => {
   const MenuItens = () => {
     return (
       <Menu>
-        {data.map((d, idx) => {
+        {EVENT_MENU.map((d, idx) => {
           return <MenuItem menu={d} key={idx} />
         })}
       </Menu>

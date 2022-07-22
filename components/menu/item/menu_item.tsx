@@ -11,12 +11,12 @@ interface Props {
 const MenuItem: FC<Props> = ({ menu }) => {
   const router = useRouter();
 
-  const disabled = () => menu.disable ? "disabled" : "";
+  const disabled = () => menu.disabled ? "disabled" : "";
   const selectMenuItem = () => router.pathname === menu.link ? "-selected" : "";
   const getStyle = () => style["menu-item-component" + selectMenuItem()] + " " + style[disabled()];
 
   const HandledLink: FC = ({ children }) => {
-    if (!menu.disable) {
+    if (!menu.disabled) {
       return (
         <Link href={menu.link!}>
           {children}

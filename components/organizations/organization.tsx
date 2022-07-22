@@ -5,17 +5,17 @@ import AddIcon from '@mui/icons-material/Add';
 import style from "./organization.module.scss";
 import OrganizationForm from "../Content/Form/Organization";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import { setStatus, asyncOrganizations } from "../../src/store/profile_ctx.store";
-import { asyncSetOrganization } from "../../src/store/organization_ctx.store";
+import { setStatus, asyncOrganizations } from "../../src/store/user.store";
 import { GetOrganization, GetOrganizerWithOrganization } from "../../src/dto/organization.dto";
+import { asyncSetOrganization } from "../../src/store/controller.store";
 
 const Organization = () => {
 
   // Context
   const ctx = useContext(AuthContext);
+  const user = useAppSelector((state) => state.user);
+  const controller = useAppSelector((state) => state.controller);
   const dispatch = useAppDispatch();
-  const profile_ctx = useAppSelector((state) => state.profile_ctx);
-  const organization_ctx = useAppSelector((state) => state.organization_ctx);
   // State
   const [organizations, setOrganizations] = useState<GetOrganizerWithOrganization[]>([] as GetOrganizerWithOrganization[]);
 
@@ -26,12 +26,12 @@ const Organization = () => {
   }, [])
 
   useEffect(() => {
-    if (profile_ctx.organizations && profile_ctx.organizations.length > 0) {
-      let organizationSorted = [...profile_ctx.organizations];
-      organizationSorted.sort(a => a.organization?.id === organization_ctx.selected_organization.id ? -1 : 1);
+    if (user.organizations && user.organizations.length > 0) {
+      let organizationSorted = [...user.organizations];
+      organizationSorted.sort(a => a.organization?.id === controller.selected_organization.id ? -1 : 1);
       setOrganizations(organizationSorted);
     }
-  }, [profile_ctx.organizations, organization_ctx.selected_organization.id])
+  }, [user.organizations, controller.selected_organization.id])
 
   const HeaderComponent = () => {
     return (
@@ -46,7 +46,7 @@ const Organization = () => {
 
   const OrganizationListComponent = () => {
 
-    const isSelectedOrganization = (id: number) => organization_ctx.selected_organization.id === id;
+    const isSelectedOrganization = (id: number) => controller.selected_organization.id === id;
     const getSelectedOrganizationClass = (id: number) => isSelectedOrganization(id) ? "organization-selected" : "organization";
 
     return (

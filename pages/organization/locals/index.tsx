@@ -8,24 +8,25 @@ import { persistLocal } from "../../../services/api.local";
 import { GetLocal } from "../../../src/dto/local.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import styled from "./locals_page.module.scss";
-import { asyncSetLocals } from "../../../src/store/organization_ctx.store";
+import { asyncSetLocals } from "../../../src/store/organization.store";
 
 const LocalPage = () => {
 
   // Context
-  const organization_ctx = useAppSelector((state) => state.organization_ctx);
+  const controller = useAppSelector((state) => state.controller);
+  const organization = useAppSelector((state) => state.organization);
   const dispatch = useAppDispatch();
 
   /* Methods */
 
   useEffect(() => {
-    dispatch(asyncSetLocals(organization_ctx.selected_organization.id));
-  }, [organization_ctx.selected_organization.id])
+    dispatch(asyncSetLocals(controller.selected_organization.id));
+  }, [controller.selected_organization.id])
 
   const LocalsList = () => {
     return (
       <ul className={styled["locals-list-component"]}>
-        {organization_ctx.locals.map(local => {
+        {organization.locals.map(local => {
           return <LocalView local={local} key={local.id} />
         })}
       </ul>

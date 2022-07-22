@@ -6,7 +6,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 const Profile = () => {
 
+  // Context
   const ctx = useContext(AuthContext);
+
+  /* Methods */
 
   const SignOutComponent = () => {
     return (

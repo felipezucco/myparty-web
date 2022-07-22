@@ -1,11 +1,15 @@
 import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
-import profile_ctxReducer from "./profile_ctx.store";
-import organization_ctxReducer from "./organization_ctx.store";
+import userReducer from "./user.store";
+import organizationReducer from "./organization.store";
+import eventReducer from "./event.store";
+import controllerReducer from "./controller.store";
 
 export const store = configureStore({
   reducer: {
-    organization_ctx: organization_ctxReducer,
-    profile_ctx: profile_ctxReducer,
+    organization: organizationReducer,
+    user: userReducer,
+    event: eventReducer,
+    controller: controllerReducer
   }
 });
 

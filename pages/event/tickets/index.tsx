@@ -3,17 +3,18 @@ import LayoutComponent from "../../../components/layout/layout";
 import { GetServerSideProps } from 'next'
 import { parseCookies } from "nookies";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
-import { asyncSetEvents, asyncSetTickets } from "../../../src/store/organization_ctx.store";
 import { useForm } from "react-hook-form";
 import { GetTicketBatch, GetTicket, PersistTicket, PersistTicketBatch } from "../../../src/dto/ticket.dto";
-import { deleteTicketBatchById, deleteTicketById, persistTicket } from "../../../services/api.ticket";
+import { removeTicketBatchById, removeTicketById, persistTicket } from "../../../services/api.ticket";
 import { AxiosError } from "axios";
 import getMenu from "../../../components/default";
+import { asyncSetTickets } from "../../../src/store/event.store";
 
 const TicketPage = () => {
 
   // Context  
-  const organization_ctx = useAppSelector(state => state.organization_ctx);
+  const controller = useAppSelector(state => state.controller);
+  const event = useAppSelector(state => state.event);
   const dispatch = useAppDispatch();
   // Hook-Form
   const { register, getValues, handleSubmit, setValue } = useForm<PersistTicket>();
@@ -26,8 +27,8 @@ const TicketPage = () => {
   /* Methods */
 
   useEffect(() => {
-    dispatch(asyncSetTickets(organization_ctx.selected_event.id!));
-  }, [organization_ctx.selected_event.id])
+    dispatch(asyncSetTickets(controller.selected_event.id));
+  }, [controller.selected_event.id])
 
   const handleSubmitTicketBatchForm = () => {
     setTicketBatchList([...ticketBatchList, ticketBatchGetValues()]);
@@ -37,7 +38,7 @@ const TicketPage = () => {
     setValue("batchs", ticketBatchList);
     await persistTicket(getValues()).then(res => {
       console.log("persistTicket", res);
-      dispatch(asyncSetTickets(organization_ctx.selected_event.id!));
+      dispatch(asyncSetTickets(controller.selected_event.id!));
     })
   }
 
@@ -54,7 +55,7 @@ const TicketPage = () => {
   const TicketListComponent = () => {
     return (
       <ul>
-        {organization_ctx.tickets.map(ticket => {
+        {event.tickets.map(ticket => {
           return (
             <li key={ticket.id}>{ticket.name} - {ticket.event?.name} -
               {ticket.batchs!.map(batch => {
@@ -62,16 +63,16 @@ const TicketPage = () => {
                   <span key={batch.id}>
                     n: {batch.name} | price: {batch.price} | qntd: {batch.quantity} | n°: {batch.firstNumber}
                     <a onClick={() => {
-                      deleteTicketBatchById(batch.id!).then(res =>
-                        dispatch(asyncSetTickets(organization_ctx.selected_event.id!))
+                      removeTicketBatchById(batch.id!).then(res =>
+                        dispatch(asyncSetTickets(controller.selected_event.id!))
                       ).catch((err: AxiosError) => console.error(err))
                     }}>Deletar</a>
                   </span>
                 )
               })}
               <a onClick={() => {
-                deleteTicketById(ticket.id!).then(res =>
-                  dispatch(asyncSetTickets(organization_ctx.selected_event.id!))
+                removeTicketById(ticket.id!).then(res =>
+                  dispatch(asyncSetTickets(controller.selected_event.id!))
                 ).catch((err: AxiosError) => console.error(err))
               }}>/Deletar Ticket</a>
             </li>
@@ -87,8 +88,8 @@ const TicketPage = () => {
       <form onSubmit={handleSubmit(handleSubmitTicketForm)}>
         <label htmlFor={"ticket_name"}>Name:</label>
         <input id={"ticket_name"} {...register("name")} /><br />
-        <label>Event: {organization_ctx.selected_event.name}</label><br />
-        <input type={"hidden"} {...register("eventId")} value={organization_ctx.selected_event.id!} />
+        <label>Event: {controller.selected_event.name}</label><br />
+        <input type={"hidden"} {...register("eventId")} value={controller.selected_event.id!} />
         <button type={"submit"}>Submit</button>
       </form>
       <h3>Ticket Batchs</h3>

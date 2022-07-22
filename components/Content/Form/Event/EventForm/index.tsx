@@ -31,14 +31,14 @@ const EventForm: FC<Props> = ({ onClose, status, setStatus }) => {
     setSending(true);
     if (dateValue) setValue('date', format(dateValue, 'dd/MM/yyyy HH:mm', { locale: ptBR }));
     console.log('chegou aqui', getValues())
-    await persistEvent(getValues())
-      .then(res => {
-        console.log(res)
-        setSending(false);
-        // setStatus(false);
-      })
-      .catch((err: AxiosError) => console.log(err))
-      .finally(() => setSending(false))
+    // await persistEvent(getValues())
+    //   .then(res => {
+    //     console.log(res)
+    //     setSending(false);
+    //     // setStatus(false);
+    //   })
+    //   .catch((err: AxiosError) => console.log(err))
+    //   .finally(() => setSending(false))
   }
 
   // async function loadHouses() {

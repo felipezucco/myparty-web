@@ -9,7 +9,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 const OrganizationProfile: FC = () => {
 
   // context
-  const controller = useAppSelector((state) => state.organization_ctx);
+  const controller = useAppSelector((state) => state.controller);
 
   // state
   const [hide, setHide] = useState(false);
