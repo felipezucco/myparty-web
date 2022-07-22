@@ -12,7 +12,7 @@ const ProductionView: FC<Props> = ({ productions }) => {
   return (
     <ViewComponent>
       {productions.map(production => {
-        return <ProductionRow production={production} />
+        return <ProductionRow production={production} key={production.id} />
       })}
     </ViewComponent>
   )

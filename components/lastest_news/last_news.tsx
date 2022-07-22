@@ -73,7 +73,7 @@ const LastNews = () => {
       return (
         <ul className={style["last-news-component"]}>
           {user.notifications.map((notification) => {
-            return <LastestNewsRow notification={notification} />
+            return <LastestNewsRow notification={notification} key={notification.id} />
           })}
         </ul>
       )

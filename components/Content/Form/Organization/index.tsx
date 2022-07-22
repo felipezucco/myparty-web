@@ -87,6 +87,7 @@ const OrganizationForm = () => {
                   label={option.email}
                   {...getTagProps({ index })}
                   disabled={option === ctx.user}
+                  key={index}
                 />
               ))
             }

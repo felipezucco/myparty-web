@@ -14,7 +14,9 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({ children, na
     <section className={style[`layout-template`]}>
       <Left />
       <Right />
-      <Main children={children} menu={name} />
+      <Main menu={name} >
+        {children}
+      </Main>
     </section>
   );
 }

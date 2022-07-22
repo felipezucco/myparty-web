@@ -8,7 +8,6 @@ export const getAPIClient = (ctx?: any) => {
 
   const api = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_MYPARTY_API}`
-    // baseURL: "https://myparty-api.herokuapp.com/"
   });
 
   api.interceptors.response.use((response) => response, (error: AxiosError) => {

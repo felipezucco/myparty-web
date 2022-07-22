@@ -13,7 +13,7 @@ const EventView: FC<Props> = ({ events }) => {
   return (
     <ViewComponent>
       {events.map(event => {
-        return <EventRow event={event} />
+        return <EventRow event={event} key={event.id} />
       })}
     </ViewComponent>
   )
