@@ -1,4 +1,4 @@
-import { FC } from "react";
+import react, { FC } from "react";
 import Left from "./left/left";
 import Main from "./main/main";
 import Right from "./right/right";

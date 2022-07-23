@@ -1,11 +1,11 @@
 import { GetServerSideProps } from "next";
 import { ReactElement, useEffect } from "react";
-import LayoutComponent from "../../../components/layout/layout";
 import { parseCookies } from 'nookies'
 import getMenu, { MenuEnum } from "../../../components/default";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import ActionView from "../../../components/action/action_view/action_view";
 import { asyncSetActions } from "../../../src/store/event.store";
+import LayoutComponent from "../../../components/layout/layout";
 
 const ActionPage = () => {
 
