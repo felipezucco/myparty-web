@@ -9,6 +9,8 @@ import { PersistZone } from "../../../src/dto/zone.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetHouses, asyncSetLocals } from "../../../src/store/organization.store";
 import Router from "next/router";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 
 const NewHousePage = () => {
@@ -118,4 +120,16 @@ NewHousePage.getLayout = function getLayout(page: ReactElement) {
       {page}
     </LayoutComponent>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/',
+      permanent: false
+    }
+  }
 }

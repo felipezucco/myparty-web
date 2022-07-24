@@ -4,6 +4,8 @@ import getMenu from "../../../components/default";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { asyncSetHouses } from "../../../src/store/organization.store";
 import HousesView from "../../../components/house/houses_view/houses_view";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 
 const HousePage = () => {
@@ -33,4 +35,16 @@ HousePage.getLayout = function getLayout(page: ReactElement) {
       {page}
     </LayoutComponent>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '',
+      permanent: false
+    }
+  }
 }

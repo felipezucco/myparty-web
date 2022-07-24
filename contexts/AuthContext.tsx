@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: any) => {
         authSuccess(data.data)
       }).catch((error: AxiosError) => {
         console.error("erro ao recoverAuth", error);
-        Router.push('/auth/invalid_auth').then(() => {
+        Router.push('/').then(() => {
           setTimeout(clearAuth, 3000);
         })
       }).finally(() => setLoading(false));

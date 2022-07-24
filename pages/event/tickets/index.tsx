@@ -129,7 +129,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (token) return { props: {} }
   else return {
     redirect: {
-      destination: '/auth/invalid_auth',
+      destination: '/',
       permanent: false
     }
   }

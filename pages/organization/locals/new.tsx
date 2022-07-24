@@ -1,4 +1,6 @@
 import { AxiosError } from "axios";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 import { ReactElement, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import getMenu from "../../../components/default";
@@ -63,4 +65,16 @@ NewLocalPage.getLayout = function getLayout(page: ReactElement) {
       {page}
     </LayoutComponent>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/',
+      permanent: false
+    }
+  }
 }

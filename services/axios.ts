@@ -18,7 +18,7 @@ export const getAPIClient = (ctx?: any) => {
     console.error('Api erro', error);
     if (error.response?.status === 401) {
       api.defaults.headers.common['Authorization'] = "";
-      Router.push("/auth/invalid_auth");
+      Router.push("/");
     }
   })
 

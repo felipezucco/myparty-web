@@ -9,6 +9,8 @@ import { GetLocal } from "../../../src/dto/local.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import styled from "./locals_page.module.scss";
 import { asyncSetLocals } from "../../../src/store/organization.store";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 const LocalPage = () => {
 
@@ -48,4 +50,16 @@ LocalPage.getLayout = function getLayout(page: ReactElement) {
       {page}
     </LayoutComponent>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { 'eventweb.token': token } = parseCookies(context);
+
+  if (token) return { props: {} }
+  else return {
+    redirect: {
+      destination: '/',
+      permanent: false
+    }
+  }
 }
