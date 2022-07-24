@@ -31,7 +31,6 @@ const NewHousePage = () => {
 
   const handleHouseSubmitForm = async () => {
     setServerSideValues();
-    console.log(getValues())
     await persistHouse(getValues()).then(res => {
       alert("House created successfully");
       dispatch(asyncSetHouses(controller.selected_organization.id!));

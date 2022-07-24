@@ -37,7 +37,6 @@ const TicketPage = () => {
   const handleSubmitTicketForm = async () => {
     setValue("batchs", ticketBatchList);
     await persistTicket(getValues()).then(res => {
-      console.log("persistTicket", res);
       dispatch(asyncSetTickets(controller.selected_event.id!));
     })
   }

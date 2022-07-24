@@ -27,7 +27,6 @@ const HouseView: FC<Props> = ({ houseId, handleShowDialog, show }) => {
         let house: HouseType = res.data[0];
         setHouse(house);
       })
-      .catch((err: AxiosError) => console.log(err))
   }
 
   return (

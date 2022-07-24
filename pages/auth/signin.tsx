@@ -14,17 +14,22 @@ export type SignInRequestType = {
   password: string
 }
 
-const SignIn = () => {
+const SignInPage = () => {
 
-  const { register, handleSubmit } = useForm<SignInRequestType>();
+  // Context
   const { signIn } = useContext(AuthContext);
+  // State
   const [loading, setLoading] = useState(false);
   const [wrongCredentials, setWrongCredentials] = useState(false);
+  // Hook-Form
+  const { register, handleSubmit } = useForm<SignInRequestType>();
 
-  function handleSubmitForm(data: any) {
+  /* Methods */
+
+  const handleSubmitForm = async (data: any) => {
     setLoading(true);
     setWrongCredentials(false)
-    signIn(data)
+    await signIn(data)
       .catch((err: AxiosError) => {
         setLoading(false)
         if (err.response?.status === 401) {
@@ -84,4 +89,4 @@ const SignIn = () => {
   );
 }
 
-export default SignIn;
+export default SignInPage;

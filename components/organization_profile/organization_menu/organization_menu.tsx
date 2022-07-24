@@ -10,7 +10,6 @@ import { ORGANIZATION_MENU } from "../../default";
 const OrganizationMenu = () => {
 
   const MenuItems = () => {
-    console.log(Object.entries(ORGANIZATION_MENU));
 
     return (
       <Menu>

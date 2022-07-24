@@ -38,8 +38,6 @@ const OrganizationForm = () => {
       });
       setValue('organizers', organizerList);
 
-      console.log(getValues());
-
       persistOrganization(getValues()).then(res => {
         dispatch(setStatus(false));
         dispatch(asyncOrganizations(user.id!));

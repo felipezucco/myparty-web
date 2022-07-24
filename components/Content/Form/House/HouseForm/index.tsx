@@ -29,7 +29,6 @@ const HouseForm: FC<Props> = ({ onClose, setStatus, status }) => {
   const [sending, setSending] = useState(false);
 
   const handleSubmitForm = (data: any) => {
-    console.log(data)
     // let UF = UFList.find(uf => uf.id === UFSelected);
     // let city = CitiesList.find(city => city.id === CitySelected);
     if (activeStep < 3) {
@@ -38,7 +37,6 @@ const HouseForm: FC<Props> = ({ onClose, setStatus, status }) => {
     }
 
     let newHouse: HouseType = data;
-    console.log('newHouse', newHouse);
 
     // setSending(true);
     // return persistHouse(newHouse)

@@ -29,10 +29,8 @@ const ProductionPage = () => {
 
   const productionFormHandleSubmit = async () => {
     setValue("productionCost", productionCost);
-    console.log(getValues());
     await persistProduction(getValues()).then(res => {
-      console.log('res', res),
-        loadProduction();
+      loadProduction();
     }).catch(err => {
       console.error(err);
     })
@@ -43,7 +41,6 @@ const ProductionPage = () => {
   }
 
   const costFormHandleSubmit = () => {
-    console.log(getValues());
     setProductionCost([...productionCost, pcGetValue()]);
   }
 

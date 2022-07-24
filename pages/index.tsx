@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head';
-import SignIn from './auth/signin';
+import SignInPage from './auth/signin';
 
 const Home: NextPage = () => {
 
@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Event Web | Home</title>
       </Head>
-      <SignIn />
+      <SignInPage />
     </>
   );
 }

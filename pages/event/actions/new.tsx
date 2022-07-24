@@ -34,7 +34,6 @@ const NewActionPage = () => {
   const actionHandleSubmit = async () => {
     setValue("eventId", controller.selected_event.id);
 
-    console.log(getValues());
     await persistAction(getValues())
       .then(res => {
         alert("Action created");

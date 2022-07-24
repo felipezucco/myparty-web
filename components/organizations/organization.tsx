@@ -23,7 +23,7 @@ const Organization = () => {
 
   useEffect(() => {
     dispatch(asyncOrganizations(ctx.user.id!));
-  }, [])
+  }, [ctx.user.id])
 
   useEffect(() => {
     if (user.organizations && user.organizations.length > 0) {

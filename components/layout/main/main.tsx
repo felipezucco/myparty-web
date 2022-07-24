@@ -10,10 +10,6 @@ interface Props {
 
 const Main: FC<Props> = ({ children, menu }) => {
 
-  useEffect(() => {
-    console.log('menu', menu);
-  }, [menu])
-
   return (
     <div className={style['main-section']} >
       <div className={style[""]} onClick={() => Router.back()}>

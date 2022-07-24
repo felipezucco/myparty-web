@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GetNotification } from '../../components/lastest_news/last_news';
 import { getOrganizerByUser } from '../../services/api.org';
+import { GetNotification } from '../dto/notification.dto';
 import { GetOrganizerWithOrganization } from '../dto/organization.dto';
 import { AppThunk } from './store';
 
@@ -43,9 +43,11 @@ export default user.reducer;
 
 export function asyncOrganizations(userId: number): AppThunk {
   return async function (dispatch) {
-    await getOrganizerByUser(userId).then(res => {
-      console.log("getOrganizerByUser", res);
-      dispatch(setOrganizations(res.data));
-    });
+    if (userId) {
+      await getOrganizerByUser(userId).then(res => {
+        console.log("getOrganizerByUser", res);
+        dispatch(setOrganizations(res.data));
+      });
+    }
   }
 }

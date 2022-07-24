@@ -35,7 +35,6 @@ const NewPromotionPage = () => {
     await persistPromotion(getValues())
       .then(res => {
         alert("Promotion Created");
-        console.log("promotion", res.data);
         loadPromotions();
       }).catch(err => {
         console.error(err);

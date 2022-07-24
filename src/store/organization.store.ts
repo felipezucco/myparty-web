@@ -52,27 +52,33 @@ export default organization.reducer;
 
 export function asyncSetLocals(id: number): AppThunk {
   return async function (dispatch) {
-    getLocalsByOrganizationId(id).then(res => {
-      console.log("locals", res.data)
-      dispatch(setLocals(res.data));
-    }).catch(err => console.error(err));
+    if (id) {
+      getLocalsByOrganizationId(id).then(res => {
+        console.log("locals", res.data)
+        dispatch(setLocals(res.data));
+      }).catch(err => console.error(err));
+    }
   }
 }
 
 export function asyncSetHouses(id: number): AppThunk {
   return async function (dispatch) {
-    getHousesByOrganizationId(id).then(res => {
-      console.log("houses", res.data)
-      dispatch(setHouses(res.data));
-    }).catch(err => console.error(err));
+    if (id) {
+      getHousesByOrganizationId(id).then(res => {
+        console.log("houses", res.data)
+        dispatch(setHouses(res.data));
+      }).catch(err => console.error(err));
+    }
   }
 }
 
 export function asyncSetEvents(id: number): AppThunk {
   return async function (dispatch) {
-    getEventsByOrganizationId(id).then(res => {
-      console.log("events", res.data)
-      dispatch(setEvents(res.data));
-    }).catch(err => console.error(err));
+    if (id) {
+      getEventsByOrganizationId(id).then(res => {
+        console.log("events", res.data)
+        dispatch(setEvents(res.data));
+      }).catch(err => console.error(err));
+    }
   }
 }
