@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { setNotificationSeen } from "../../../services/api.notification";
+import { GetNotification } from "../../../src/dto/notification.dto";
 import { useAppDispatch, useAppSelector } from "../../../src/store/hooks";
 import { setNotification, updateNotification } from "../../../src/store/user.store";
-import { GetNotification } from "../last_news";
 import style from "./lastest_news_row.module.scss";
 
 interface Props {

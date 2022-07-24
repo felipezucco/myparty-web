@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { GetNotification } from '../components/lastest_news/last_news';
+import { GetNotification } from '../src/dto/notification.dto';
 import { GetTicket } from '../src/dto/ticket.dto';
 import api from './api';
 
